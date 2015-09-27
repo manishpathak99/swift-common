@@ -52,7 +52,11 @@ func numeric2string (u: UInt32) -> String {
 
 
 /*
- * NAME append2string
+ * NAME append2string - this is for <Integer>.<Frac>
+ *
+ * DESCRIPTION
+ *   E.x. "1.1", 3, 1 => "1.13"
+ *   "1.012", 3, 5 => "1.012003"
  */
 func append2string (final s: String, frac: UInt8, n: UInt32) -> String {
 	var res = s
@@ -60,6 +64,14 @@ func append2string (final s: String, frac: UInt8, n: UInt32) -> String {
 	print(s, frac, n)
 
 	if (res.characters.contains(".")) {
+		let ss = res.characters.split(".")
+		let l = ss[1].count
+		let le = n - UInt32(l)
+
+		for (var i: UInt32 = 0; i < le; ++i) {
+			res += "0"
+		}
+
 		res += numeric2string(UInt32(frac))
 	} else {
 		res += "."
