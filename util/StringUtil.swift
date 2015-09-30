@@ -1,6 +1,40 @@
 import Foundation
 
 
+class StringUtil {
+	static func cstring2string (cstring s: [Int8], encoding: NSStringEncoding)
+		-> String? {
+		/* e.x. NSUTF8StringEncoding */
+		return String(CString: s, encoding: encoding)
+	}
+
+
+	static func cstring2string (cstring s: UnsafeMutablePointer<Int8>,
+		encoding: NSStringEncoding)
+		-> String? {
+		/* e.x. NSUTF8StringEncoding */
+		return String(CString: s, encoding: encoding)
+	}
+
+
+	static func string2cstring (string s: String, encoding: NSStringEncoding)
+		-> [Int8]? {
+		/* e.x. NSUTF8StringEncoding */
+		let data = s.dataUsingEncoding(encoding)
+
+		if (nil == data) {
+			return nil
+		}
+
+		var buf: [Int8] = [Int8](count: data!.length, repeatedValue: 0x0)
+
+		data!.getBytes(&buf, length: data!.length)
+
+		return buf
+	}
+}
+
+
 func string2double (s: String) -> Double {
 	return NSNumberFormatter().numberFromString(s)!.doubleValue
 }
