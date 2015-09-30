@@ -1,15 +1,25 @@
 import Foundation
 
 
-class StringUtil {
-	static func cstring2string (cstring s: [Int8], encoding: NSStringEncoding)
+public class NSObjectString: NSObject {
+	public var s: String?
+}
+
+
+public class StringUtil {
+	public static func toString () -> String {
+		return "StringUtil"
+	}
+
+
+	public static func cstring2string (cstring s: [Int8], encoding: NSStringEncoding)
 		-> String? {
 		/* e.x. NSUTF8StringEncoding */
 		return String(CString: s, encoding: encoding)
 	}
 
 
-	static func cstring2string (cstring s: UnsafeMutablePointer<Int8>,
+	public static func cstring2string (cstring s: UnsafeMutablePointer<Int8>,
 		encoding: NSStringEncoding)
 		-> String? {
 		/* e.x. NSUTF8StringEncoding */
@@ -17,21 +27,27 @@ class StringUtil {
 	}
 
 
-	static func string2cstring (string s: String, encoding: NSStringEncoding)
+	public static func string2cstring (string s: String, encoding: NSStringEncoding)
 		-> [Int8]? {
 		/* e.x. NSUTF8StringEncoding */
-		let data = s.dataUsingEncoding(encoding)
+		let data = s.dataUsingEncoding(encoding, allowLossyConversion: false)
 
 		if (nil == data) {
 			return nil
 		}
 
-		var buf: [Int8] = [Int8](count: data!.length, repeatedValue: 0x0)
+		let l = data!.length
+		var buf: [Int8] = [Int8](count: l, repeatedValue: 0x0)
 
-		data!.getBytes(&buf, length: data!.length)
+		LogUtil.v(tag: TAG, items: "len: \(l)")
+
+		data!.getBytes(&buf, length: l)
 
 		return buf
 	}
+
+
+	private static let TAG: String = StringUtil.toString()
 }
 
 

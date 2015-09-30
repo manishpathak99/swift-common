@@ -6,8 +6,13 @@
 import Foundation
 
 
-class TimeUtil {
-	static func timestampStr () -> String {
+public class TimeUtil {
+	public static func toString () -> String {
+		return "TimeUtil"
+	}
+
+
+	public static func timestampStr () -> String {
 		let now = NSDate()
 
 		let formatter: NSDateFormatter = NSDateFormatter()
@@ -19,7 +24,7 @@ class TimeUtil {
 	}
 
 
-	static func timestampstring () -> String {
+	public static func timestampstring () -> String {
 		let _nowUs = TimeUtil.now()
 		let us = _nowUs.tv_usec
 		let now = NSDate()
@@ -34,7 +39,7 @@ class TimeUtil {
 	}
 
 
-	static func now () -> (timeval) {
+	public static func now () -> timeval {
 		var tv = timeval(tv_sec: 0, tv_usec: 0)
 
 		gettimeofday(&tv, nil)
@@ -43,4 +48,23 @@ class TimeUtil {
 
 		return tv
 	}
+
+
+	public static func makeid () -> UInt64 {
+		var tv = timeval(tv_sec: 0, tv_usec: 0)
+
+		gettimeofday(&tv, nil)
+
+		let _ret = (BasicTypeUtil.__darwin_time_t2double(from: tv.tv_sec)
+			* 1e6) + BasicTypeUtil.__darwin_suseconds_t2double(from: tv.tv_usec)
+
+		let ret = BasicTypeUtil.double2uint64(from: _ret)
+
+		LogUtil.v(tag: TAG, items: "id: \(ret)")
+
+		return ret
+	}
+
+
+	private static let TAG: String = TimeUtil.toString()
 }
