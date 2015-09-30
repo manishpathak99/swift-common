@@ -3,7 +3,7 @@ import Foundation
 
 public class SwiftThread: NSObject {
 	public static func toString () -> String {
-		return "SwiftUtil"
+		return "SwiftThread"
 	}
 
 
@@ -18,6 +18,7 @@ public class SwiftThread: NSObject {
 	}
 
 
+	/*
 	public init (startRoutine run: ((argKey: NSObjectString?)
 		-> (Int32, String)?),
 		argKey: String?) {
@@ -30,16 +31,24 @@ public class SwiftThread: NSObject {
 		self.thread = NSThread(target: self, selector: "__run:",
 			object: argKey)
 	}
+	*/
 
 
 	public func start () -> Int32 {
 		if (nil != self.thread) {
-			self.started = true
 			self.teminate = false
 			self.thread!.start()
 			return 0
 		} else {
 			return -ENOENT
+		}
+	}
+
+
+	public func stop () {
+		if (nil != self.thread) {
+			self.teminate = true
+			self.thread?.cancel()
 		}
 	}
 
@@ -54,6 +63,7 @@ public class SwiftThread: NSObject {
 	}
 
 
+	/*
 	@IBAction private func __run (argKey ak: NSObjectString?) {
 		if (!self.teminate) {
 			self.setIsRunning()
@@ -71,9 +81,9 @@ public class SwiftThread: NSObject {
 		self.setStopped()
 		LogUtil.t(tag: TAG, items: "tid: \(tid) end")
 	}
+	*/
 
 
-	public var started: Bool = false
 	public var running: Bool = false
 	public var teminate: Bool = true
 	public var tid: UInt64?
