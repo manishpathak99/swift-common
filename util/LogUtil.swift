@@ -2,9 +2,22 @@ import Foundation
 
 
 class LogUtil {
-	static func trace (file name: String = __FILE__,
-		line: Int = __LINE__,
-		funcName: String = __FUNCTION__) {
+	static func trace () {
+		let name: String = __FILE__
+		let line: Int = __LINE__
+		let funcName: String = __FUNCTION__
+
+#if 	ENABLE_LOG
+		if (LogUtil.logLevel <= T) {
+			let t: String = name + " +\(line) " + funcName
+			LogUtil.log(msg: t)
+		}
+#endif
+
+	}
+
+
+	static func trace (file name: String, line: Int, funcName: String) {
 
 #if 	ENABLE_LOG
 		if (LogUtil.logLevel <= T) {
