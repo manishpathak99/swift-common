@@ -16,7 +16,7 @@ public class NSObjectString: NSObject {
  * NAME StringUtil - class StringUtil
  *
  * V
- *   - 1.0.0.0_2015100800
+ *   - 1.0.0.1_2015100020800
  */
 public class StringUtil {
 	public static func toString () -> String {
@@ -36,9 +36,69 @@ public class StringUtil {
 	/*
 	 * NAME split - split string by characters to strings
 	 */
-	public static func split (string s: String, byString separator: String)
-		-> [String] {
+	public static func split (let string s: String,
+		let byString separator: String) -> [String] {
 		return s.componentsSeparatedByString(separator)
+	}
+
+
+	/*
+	 * NAME charsCount - string characters count
+	 */
+	public static func charsCount (let ofString s: String) -> Int {
+		return s.characters.count
+	}
+
+
+	/*
+	 * NAME cstringCount - c string count whenEncoding is encoding
+	 */
+	public static func cstringCount (let ofString s: String,
+		whenEncoding encoding: NSStringEncoding) -> Int {
+		if let cs = StringUtil.string2cstring(string: s, encoding: encoding) {
+			return cs.count
+		} else {
+			return -1
+		}
+	}
+
+
+	/*
+	 * NAME dataCount - c string count whenEncoding is encoding
+	 */
+	public static func dataCount (let ofString s: String,
+		whenEncoding encoding: NSStringEncoding) -> Int {
+		return StringUtil.cstringCount(ofString: s, whenEncoding: encoding)
+	}
+
+
+	/*
+	 * NAME substring - sub string of string (by character)
+	 */
+	public static func substring (let ofString s: String, from ib: Int,
+		to ie: Int) -> String? {
+		let c = s.characters.count
+
+		if ((ib < 0) || (ie > c) || (ie < (ib + 1))) {
+			LogUtil.trace()
+			return nil
+		} else {
+			LogUtil.trace()
+			var dump = s
+
+			var r = ib
+			while (r-- > 0) {
+				dump.removeAtIndex(dump.startIndex)
+			}
+
+			var _ret = BufferUtil.getBuffer(char_count: 0)
+			r = ie - ib
+			while (r-- > 0) {
+				_ret.append(dump.removeAtIndex(dump.startIndex))
+			}
+
+			return String(_ret)
+		}
 	}
 
 
