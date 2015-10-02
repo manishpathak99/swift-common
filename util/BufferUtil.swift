@@ -14,4 +14,9 @@ class BufferUtil {
 	static func getBuffer (int64_count c: Int) -> [Int64] {
 		return [Int64](count: c, repeatedValue: 0x0)
 	}
+
+
+	static func getBuffer (string_count c: Int) -> [String] {
+		return [String](count: c, repeatedValue: "")
+	}
 }

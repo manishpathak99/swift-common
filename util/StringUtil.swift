@@ -1,18 +1,49 @@
 import Foundation
 
 
+/*
+ * NAME NSObjectString - class NSObjectString
+ *
+ * V
+ *  - 1.0.0.0_2015100800
+ */
 public class NSObjectString: NSObject {
 	public var s: String?
 }
 
 
+/*
+ * NAME StringUtil - class StringUtil
+ *
+ * V
+ *   - 1.0.0.0_2015100800
+ */
 public class StringUtil {
 	public static func toString () -> String {
-		return "StringUtil"
+		return "StringUtilv1.0.0.0_2015100800"
 	}
 
 
-	public static func cstring2string (cstring s: [Int8], encoding: NSStringEncoding)
+	/*
+	 * NAME split - split string by ONE Character to strings
+	 */
+	public static func split (string s: String,
+		byCharacter separator: Character) -> [String] {
+		return s.componentsSeparatedByString(String(separator))
+	}
+
+
+	/*
+	 * NAME split - split string by characters to strings
+	 */
+	public static func split (string s: String, byString separator: String)
+		-> [String] {
+		return s.componentsSeparatedByString(separator)
+	}
+
+
+	public static func cstring2string (cstring s: [Int8],
+		encoding: NSStringEncoding)
 		-> String? {
 		/* e.x. NSUTF8StringEncoding */
 		return String(CString: s, encoding: encoding)
@@ -27,7 +58,8 @@ public class StringUtil {
 	}
 
 
-	public static func string2cstring (string s: String, encoding: NSStringEncoding)
+	public static func string2cstring (string s: String,
+		encoding: NSStringEncoding)
 		-> [Int8]? {
 		/* e.x. NSUTF8StringEncoding */
 		let data = s.dataUsingEncoding(encoding, allowLossyConversion: false)
