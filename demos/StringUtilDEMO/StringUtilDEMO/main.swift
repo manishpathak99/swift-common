@@ -73,3 +73,10 @@ print("s:", s, "-1, \(c):", StringUtil.substring(ofString: s, from: -1, to: c))
 print("s:", s, "0, \(c + 1):", StringUtil.substring(ofString: s, from: -1,
 	to: (c + 1)))
 print("s:", "", "0, 1:", StringUtil.substring(ofString: "", from: 0, to: 1))
+
+
+/* reverse */
+print("s:", s, "reverse:", StringUtil.reverse(tostring: s))
+print("s:", s, "2 reverse:", StringUtil.reverse(tocs: s))
+print("s:", "", "3 reverse:", StringUtil.reverse(tostring: ""))
+print("s:", "", "4 reverse:", StringUtil.reverse(tocs: ""))

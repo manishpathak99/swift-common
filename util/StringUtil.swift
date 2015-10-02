@@ -80,10 +80,10 @@ public class StringUtil {
 		let c = s.characters.count
 
 		if ((ib < 0) || (ie > c) || (ie < (ib + 1))) {
-			LogUtil.trace()
+			/* LogUtil.trace() */
 			return nil
 		} else {
-			LogUtil.trace()
+			/* LogUtil.trace() */
 			var dump = s
 
 			var r = ib
@@ -99,6 +99,22 @@ public class StringUtil {
 
 			return String(_ret)
 		}
+	}
+
+
+	/*
+	 * NAME reverse - reverse string to reversed string
+	 */
+	public static func reverse (let tostring ori: String) -> String {
+		return String(ori.characters.reverse())
+	}
+
+
+	/*
+	 * NAME reverse - reverse string to reversed CS
+	 */
+	public static func reverse (let tocs ori: String) -> [Character] {
+		return ori.characters.reverse()
 	}
 
 
