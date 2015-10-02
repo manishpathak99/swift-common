@@ -16,6 +16,11 @@ class BufferUtil {
 	}
 
 
+	static func getBuffer (char_count c: Int) -> [Character] {
+		return [Character](count: c, repeatedValue: "\0".characters.first!)
+	}
+
+
 	static func getBuffer (string_count c: Int) -> [String] {
 		return [String](count: c, repeatedValue: "")
 	}
