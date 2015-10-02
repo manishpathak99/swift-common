@@ -10,6 +10,9 @@
 		CA4898BC1BBEC79F00DE60CF /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4898BB1BBEC79F00DE60CF /* main.swift */; };
 		CA4898C31BBEC83500DE60CF /* StringUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4898C21BBEC83500DE60CF /* StringUtil.swift */; settings = {ASSET_TAGS = (); }; };
 		CA4898C81BBEC86C00DE60CF /* LogUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4898C71BBEC86C00DE60CF /* LogUtil.swift */; settings = {ASSET_TAGS = (); }; };
+		CAC0508D1BBEDB2D005E2200 /* BufferUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC0508C1BBEDB2D005E2200 /* BufferUtil.swift */; settings = {ASSET_TAGS = (); }; };
+		CAC0508F1BBEDFF1005E2200 /* TimeUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC0508E1BBEDFF1005E2200 /* TimeUtil.swift */; settings = {ASSET_TAGS = (); }; };
+		CAC050911BBEE07D005E2200 /* TypeUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC050901BBEE07D005E2200 /* TypeUtil.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -29,6 +32,9 @@
 		CA4898BB1BBEC79F00DE60CF /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		CA4898C21BBEC83500DE60CF /* StringUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StringUtil.swift; path = ../../../util/StringUtil.swift; sourceTree = "<group>"; };
 		CA4898C71BBEC86C00DE60CF /* LogUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LogUtil.swift; path = ../../../../util/LogUtil.swift; sourceTree = "<group>"; };
+		CAC0508C1BBEDB2D005E2200 /* BufferUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BufferUtil.swift; path = ../../../../util/BufferUtil.swift; sourceTree = "<group>"; };
+		CAC0508E1BBEDFF1005E2200 /* TimeUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TimeUtil.swift; path = ../../../../util/TimeUtil.swift; sourceTree = "<group>"; };
+		CAC050901BBEE07D005E2200 /* TypeUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TypeUtil.swift; path = ../../../../util/TypeUtil.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +77,9 @@
 		CA4898C41BBEC86200DE60CF /* common */ = {
 			isa = PBXGroup;
 			children = (
+				CAC050901BBEE07D005E2200 /* TypeUtil.swift */,
+				CAC0508E1BBEDFF1005E2200 /* TimeUtil.swift */,
+				CAC0508C1BBEDB2D005E2200 /* BufferUtil.swift */,
 				CA4898C71BBEC86C00DE60CF /* LogUtil.swift */,
 			);
 			name = common;
@@ -134,8 +143,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				CA4898C31BBEC83500DE60CF /* StringUtil.swift in Sources */,
+				CAC050911BBEE07D005E2200 /* TypeUtil.swift in Sources */,
 				CA4898C81BBEC86C00DE60CF /* LogUtil.swift in Sources */,
 				CA4898BC1BBEC79F00DE60CF /* main.swift in Sources */,
+				CAC0508F1BBEDFF1005E2200 /* TimeUtil.swift in Sources */,
+				CAC0508D1BBEDB2D005E2200 /* BufferUtil.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -223,6 +235,7 @@
 		CA4898C01BBEC79F00DE60CF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				OTHER_SWIFT_FLAGS = "-D ENABLE_LOG";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -230,6 +243,7 @@
 		CA4898C11BBEC79F00DE60CF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				OTHER_SWIFT_FLAGS = "-D ENABLE_LOG";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
