@@ -40,9 +40,11 @@ public class ArrayList <T> {
 
 
 	/*
-	 * NAME append - append below old bottom
+	 * NAME append - append to last (the latest one)
+	 *  For stack the-latest one is top
+	 *  For queue the-latest one is tail
 	 */
-	public final func append (belowOldBottom v: T) -> Bool {
+	public final func append (v: T) -> Bool {
 		var ret: Bool?
 
 		self.LOCK()
@@ -82,10 +84,10 @@ public class ArrayList <T> {
 
 
 	/*
-	 * NAME enqueue - append and after-old-tail (below-old-bottom)
+	 * NAME enqueue - append and after-old-tail (be-the-latest-one)
 	 */
 	public final func enqueue (v: T) -> Bool {
-		return self.append(belowOldBottom: v)
+		return self.append(v)
 	}
 
 
@@ -116,10 +118,10 @@ public class ArrayList <T> {
 
 
 	/*
-	 * NAME push - append and as top (latest append one)
+	 * NAME push - append and as top (latest-one)
 	 */
 	public final func push (v: T) -> Bool {
-		return self.append(belowOldBottom: v)
+		return self.append(v)
 	}
 
 
