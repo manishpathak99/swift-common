@@ -139,30 +139,42 @@ public class StringUtil {
 
 	/*
 	 * NAME substring - sub string of string (by character)
+	 *
+	 * DESC
+	 *   - from start Char index to end(no end)
 	 */
-	public static func substring (let ofString s: String, from ib: Int,
+	public static func substring (let ofString s: String, fromCharIndex ib: Int,
 		to ie: Int) -> String? {
 		let c = s.characters.count
 
 		if ((ib < 0) || (ie > c) || (ie < (ib + 1))) {
-			/* LogUtil.trace() */
 			return nil
 		} else {
-			/* LogUtil.trace() */
-			var dump = s
+			let start = s.startIndex.advancedBy(ib)
+			let end = s.startIndex.advancedBy(ie - 1)
 
-			var r = ib
-			while (r-- > 0) {
-				dump.removeAtIndex(dump.startIndex)
-			}
+			return s[start...end]
+		}
+	}
 
-			var _ret = BufferUtil.getBuffer(char_count: 0)
-			r = ie - ib
-			while (r-- > 0) {
-				_ret.append(dump.removeAtIndex(dump.startIndex))
-			}
 
-			return String(_ret)
+	/*
+	 * NAME substring - sub string of string (by character)
+	 *
+	 * DESC
+	 *   - from start Char index and count Chars
+	 */
+	public static func substring (let ofString s: String, fromCharIndex ib: Int,
+		count c: Int) -> String? {
+		let ec = s.characters.count
+
+		if ((ib < 0) || (c <= 0) || ((c + ib) > ec)) {
+			return nil
+		} else {
+			let start = s.startIndex.advancedBy(ib)
+			let end = s.startIndex.advancedBy(ib + c - 1)
+
+			return s[start...end]
 		}
 	}
 
@@ -190,7 +202,7 @@ public class StringUtil {
 	 *   - String copy .. -- but if not !!
 	 *   - And acceptable: to get a new string and keep origin!!
 	 */
-	public static func remove (let inSstring _s: String, fromCharIndex f: Int,
+	public static func remove (let inString _s: String, fromCharIndex f: Int,
 		to t: Int) -> String {
 
 		let c = _s.characters.count

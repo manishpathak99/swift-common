@@ -65,14 +65,23 @@ print("s:", "", "3 when utf8 len: \(csc)")
 
 /* substring */
 s = "am一二😓XX"
-print("s:", s, "0, 0:", StringUtil.substring(ofString: s, from: 0, to: 0))
+print("s:", s, "0, 0:", StringUtil.substring(ofString: s, fromCharIndex: 0,
+	to: 0))
 let c = StringUtil.charsCount(ofString: s)
-print("s:", s, "0, \(c):", StringUtil.substring(ofString: s, from: 0, to: c))
-print("s:", s, "1, 3:", StringUtil.substring(ofString: s, from: 0, to: 3))
-print("s:", s, "-1, \(c):", StringUtil.substring(ofString: s, from: -1, to: c))
-print("s:", s, "0, \(c + 1):", StringUtil.substring(ofString: s, from: -1,
-	to: (c + 1)))
-print("s:", "", "0, 1:", StringUtil.substring(ofString: "", from: 0, to: 1))
+print("s:", s, "0, \(c):", StringUtil.substring(ofString: s, fromCharIndex: 0,
+	to: c))
+print("s:", s, "1, 3:", StringUtil.substring(ofString: s, fromCharIndex: 1,
+	to: 3))
+print("s:", s, "-1, \(c):", StringUtil.substring(ofString: s,
+	fromCharIndex: -1, to: c))
+print("s:", s, "0, \(c + 1):", StringUtil.substring(ofString: s,
+	fromCharIndex: -1, to: (c + 1)))
+print("s:", "", "0, 1:", StringUtil.substring(ofString: "", fromCharIndex: 0,
+	to: 1))
+print("s:", s, "1, 5:", StringUtil.substring(ofString: s, fromCharIndex: 1,
+	count: 5))
+print("s:", s, "0, 7:", StringUtil.substring(ofString: s, fromCharIndex: 0,
+	count: 7))
 
 
 /* reverse */
@@ -105,23 +114,23 @@ print("sa:", sa, "toString(fromStringArray:insSeparator:true)", s)
 
 /* remove:inString:fromCharIndex:to */
 var before = "xcvbnm中文"
-s = StringUtil.remove(inSstring: before, fromCharIndex: 0, to: 0)
+s = StringUtil.remove(inString: before, fromCharIndex: 0, to: 0)
 print(before, s)
 
 before = s
-s = StringUtil.remove(inSstring: before, fromCharIndex: -1, to: 0)
+s = StringUtil.remove(inString: before, fromCharIndex: -1, to: 0)
 print(before, s)
 
 before = s
-s = StringUtil.remove(inSstring: before, fromCharIndex: 10, to: 0)
+s = StringUtil.remove(inString: before, fromCharIndex: 10, to: 0)
 print(before, s)
 
-s = StringUtil.remove(inSstring: before, fromCharIndex: 10, to: 10)
+s = StringUtil.remove(inString: before, fromCharIndex: 10, to: 10)
 print(before, s)
 
-s = StringUtil.remove(inSstring: before, fromCharIndex: 0, to: 6)
+s = StringUtil.remove(inString: before, fromCharIndex: 0, to: 6)
 print(before, s)
 
 before = s
-s = StringUtil.remove(inSstring: before, fromCharIndex: 0, to: 0)
+s = StringUtil.remove(inString: before, fromCharIndex: 0, to: 0)
 print(before, s)
