@@ -201,6 +201,7 @@ public class StringUtil {
 	 * DESC
 	 *   - String copy .. -- but if not !!
 	 *   - And acceptable: to get a new string and keep origin!!
+	 *   - indclude "to" index (remove)
 	 */
 	public static func remove (let inString _s: String, fromCharIndex f: Int,
 		to t: Int) -> String {
@@ -213,6 +214,29 @@ public class StringUtil {
 
 		let start = _s.startIndex.advancedBy(f)
 		let end = _s.startIndex.advancedBy(t)
+
+		var s = _s
+
+		s.removeRange(start...end)
+
+		return s
+	}
+
+
+	/*
+	 * NAME remove - remove:inString:fromCharIndex:count
+	 */
+	public static func remove (let inString _s: String, fromCharIndex f: Int,
+		count c: Int) -> String {
+
+		let ec = _s.characters.count
+
+		if ((f < 0) || (c <= 0) || ((c + f) > ec)) {
+			return _s
+		}
+
+		let start = _s.startIndex.advancedBy(f)
+		let end = _s.startIndex.advancedBy(f + c - 1)
 
 		var s = _s
 

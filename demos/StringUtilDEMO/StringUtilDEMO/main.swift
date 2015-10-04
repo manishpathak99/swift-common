@@ -134,3 +134,21 @@ print(before, s)
 before = s
 s = StringUtil.remove(inString: before, fromCharIndex: 0, to: 0)
 print(before, s)
+
+
+/* remove:inString:fromCharIndex:count */
+before = "xcvbnm中文"
+s = StringUtil.remove(inString: before, fromCharIndex: 0, count: 0)
+print(before, s)
+
+before = s
+s = StringUtil.remove(inString: before, fromCharIndex: 3, count: 2)
+print(before, s)
+
+before = s
+s = StringUtil.remove(inString: before, fromCharIndex: 0, count: 6)
+print(before, s)
+
+before = s
+s = StringUtil.remove(inString: before, fromCharIndex: 0, count: 1)
+print(before, s)
