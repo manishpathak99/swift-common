@@ -100,3 +100,28 @@ print("sa:", sa, "toString(fromStringArray:insSeparator:false)", s)
 s = StringUtil.toString(fromStringArray: sa, insSeparator: " 分隔符 ",
 	hasTail: true)
 print("sa:", sa, "toString(fromStringArray:insSeparator:true)", s)
+
+
+
+/* remove:inString:fromCharIndex:to */
+var before = "xcvbnm中文"
+s = StringUtil.remove(inSstring: before, fromCharIndex: 0, to: 0)
+print(before, s)
+
+before = s
+s = StringUtil.remove(inSstring: before, fromCharIndex: -1, to: 0)
+print(before, s)
+
+before = s
+s = StringUtil.remove(inSstring: before, fromCharIndex: 10, to: 0)
+print(before, s)
+
+s = StringUtil.remove(inSstring: before, fromCharIndex: 10, to: 10)
+print(before, s)
+
+s = StringUtil.remove(inSstring: before, fromCharIndex: 0, to: 6)
+print(before, s)
+
+before = s
+s = StringUtil.remove(inSstring: before, fromCharIndex: 0, to: 0)
+print(before, s)

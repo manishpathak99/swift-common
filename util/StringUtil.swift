@@ -183,6 +183,33 @@ public class StringUtil {
 	}
 
 
+	/*
+	 * NAME remove - remove:inString:fromCharIndex:to
+	 *
+	 * DESC
+	 *   - String copy .. -- but if not !!
+	 *   - And acceptable: to get a new string and keep origin!!
+	 */
+	public static func remove (let inSstring _s: String, fromCharIndex f: Int,
+		to t: Int) -> String {
+
+		let c = _s.characters.count
+
+		if ((f < 0) || (t < 0) || (c <= 0) || (f > t) || (t >= c)) {
+			return _s
+		}
+
+		let start = _s.startIndex.advancedBy(f)
+		let end = _s.startIndex.advancedBy(t)
+
+		var s = _s
+
+		s.removeRange(start...end)
+
+		return s
+	}
+
+
 	public static func cstring2string (cstring s: [Int8],
 		encoding: NSStringEncoding)
 		-> String? {
