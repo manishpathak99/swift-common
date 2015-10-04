@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "922ED2F96A4B25AE8D574F17D2932D3CFBDD9F13",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "922ED2F96A4B25AE8D574F17D2932D3CFBDD9F13" : 0,
+    "C44A86E78CA7D3C9A3BD346EBE5AD1DAE845D53E" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "415E76C6-2864-433D-8D0E-8A2DCE2820A0",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "922ED2F96A4B25AE8D574F17D2932D3CFBDD9F13" : "swift-common\/",
+    "C44A86E78CA7D3C9A3BD346EBE5AD1DAE845D53E" : "swift-common\/thread\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "ArrayListDEMO",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "demos\/ArrayListDEMO\/ArrayListDEMO.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/iamyuiwong\/swift-common.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "922ED2F96A4B25AE8D574F17D2932D3CFBDD9F13"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/iamyuiwong\/swift-thread.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "C44A86E78CA7D3C9A3BD346EBE5AD1DAE845D53E"
+    }
+  ]
+}

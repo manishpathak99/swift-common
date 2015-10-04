@@ -101,7 +101,7 @@ if (0 != ret2) {
 
 var tt = 0
 var time: Int = 0
-while (tt++ < 100) {
+while (tt++ < 20) {
 	if (0 == (tt % 2)) {
 		al.enqueue("\(tt)")
 		print("enqueue \(time): \(tt)")
@@ -116,9 +116,54 @@ while (tt++ < 100) {
 
 al.empty()
 
-usleep(UInt32(Double(tt + 2) * 50 * 1e3))
+/* usleep(UInt32(Double(tt + 2) * 50 * 1e3)) */
 teminate = true
 pthread.cancelThread(tid: t.tid)
 pthread.cancelThread(tid: t2.tid)
 pthread.waitThreadExit(tid: t.tid)
 pthread.waitThreadExit(tid: t2.tid)
+
+
+for i in 0..<10 {
+	al.insert(head: "ibh: \(i)")
+}
+
+var dump = al.get()
+print("all: \(dump)")
+
+
+al.insert(value: "NEW-TO-I-2", atIndex: 2)
+dump = al.get()
+print("all: \(dump)")
+
+
+var succ = al.insert(value: "NEW-TO-I--1", atIndex: -1)
+print("NEW-TO-I--1 succ: \(succ)")
+succ = al.insert(value: "NEW-TO-I-1000", atIndex: 1000)
+print("NEW-TO-I-1000 succ: \(succ)")
+
+succ = al.insert(value: "NEW-TO-I-COUNT", atIndex: al.count())
+
+let nis = ["AA", "BB", "CC"]
+succ = al.insert(values: nis, atIndex: 0)
+dump = al.get()
+print("all: \(dump)")
+
+
+succ = al.insert(values: nis, atIndex: 1)
+dump = al.get()
+print("all: \(dump)")
+
+succ = al.insert(values: nis, atIndex: -1)
+print("-1 succ: \(succ)")
+
+succ = al.insert(values: nis, atIndex: 1000)
+print("1000 succ: \(succ)")
+
+succ = al.insert(values: nis, atIndex: al.count())
+dump = al.get()
+print("all: \(dump)")
+
+succ = al.insert(values: nis, atIndex: al.count() - 1)
+dump = al.get()
+print("all: \(dump)")

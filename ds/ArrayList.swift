@@ -62,10 +62,29 @@ public class ArrayList <T> {
 	}
 
 
+	public final func append (vs: [T]) -> Bool {
+		var ret: Bool?
+
+		self.LOCK()
+
+		if (nil == self.data) {
+			self.data = vs
+			ret = true
+		} else {
+			self.data = self.data! + vs
+			ret = true
+		}
+
+		self.UNLOCK()
+
+		return ret!
+	}
+
+
 	/*
-	 * NAME insert - insert above old top
+	 * NAME insert - insert as new head
 	 */
-	public final func insert (aboveOldTop v: T) -> Bool {
+	public final func insert (head v: T) -> Bool {
 		var ret: Bool?
 
 		self.LOCK()
@@ -83,6 +102,61 @@ public class ArrayList <T> {
 	}
 
 
+	/*
+	 * NAME insert - insert as index i
+	 */
+	public final func insert (value v: T, atIndex i: Int) -> Bool {
+		var ret: Bool?
+
+		self.LOCK()
+
+		if ((nil == self.data) || (i < 0)) {
+			ret = false
+		} else {
+			let c = self.data!.count
+
+			if (i <= c) {
+				self.data!.insert(v, atIndex: i)
+				ret = true
+			} else {
+				ret = false
+			}
+		}
+
+		self.UNLOCK()
+
+		return ret!
+	}
+
+
+	/*
+	 * NAME insert - insert all and first at index i
+	 */
+	public final func insert (values vs: [T], atIndex i: Int) -> Bool {
+		var ret: Bool?
+
+		self.LOCK()
+
+		if ((nil == self.data) || (i < 0)) {
+			ret = false
+		} else {
+			let c = self.data!.count
+
+			if (i <= c) {
+				let e = vs.count + i
+				for ins in i..<e {
+					self.data!.insert(vs[ins - i], atIndex: ins)
+				}
+				ret = true
+			} else {
+				ret = false
+			}
+		}
+
+		self.UNLOCK()
+
+		return ret!
+	}
 	/*
 	 * NAME enqueue - append and after-old-tail (be-the-latest-one)
 	 */
@@ -188,6 +262,20 @@ public class ArrayList <T> {
 	}
 
 	
+	/* get all */
+	public func get () -> [T]? {
+		var ret: [T]?
+
+		self.LOCK()
+
+		ret = self.data
+
+		self.UNLOCK()
+
+		return ret
+	}
+
+
 	public func set (index i: Int, v: T) -> Bool {
 		var ret: Bool?
 
