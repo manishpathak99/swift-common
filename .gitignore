@@ -31,3 +31,7 @@ DerivedData
 # Carthage/Checkouts
 
 Carthage/Build
+
+
+# https://iamyuiwong@github.com/iamyuiwong/swift-thread.git
+thread
