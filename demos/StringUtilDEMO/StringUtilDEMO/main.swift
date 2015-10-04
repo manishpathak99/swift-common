@@ -80,3 +80,23 @@ print("s:", s, "reverse:", StringUtil.reverse(tostring: s))
 print("s:", s, "2 reverse:", StringUtil.reverse(tocs: s))
 print("s:", "", "3 reverse:", StringUtil.reverse(tostring: ""))
 print("s:", "", "4 reverse:", StringUtil.reverse(tocs: ""))
+
+
+/* toString fromStringArray */
+var sa = ["111", "", "嚯嚯", "😋"]
+s = StringUtil.toString(fromStringArray: sa)
+print("sa:", sa, "toString(fromStringArray:)", s)
+
+sa = [String]()
+s = StringUtil.toString(fromStringArray: sa)
+print("sa:", sa, "toString(fromStringArray:)", s)
+
+/* toString fromStringArray and insert separator */
+sa = ["111", "$%", "^", "嚯嚯", "😋"]
+s = StringUtil.toString(fromStringArray: sa, insSeparator: " 分隔符 ",
+	hasTail: false)
+print("sa:", sa, "toString(fromStringArray:insSeparator:false)", s)
+
+s = StringUtil.toString(fromStringArray: sa, insSeparator: " 分隔符 ",
+	hasTail: true)
+print("sa:", sa, "toString(fromStringArray:insSeparator:true)", s)

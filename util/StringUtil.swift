@@ -1,3 +1,15 @@
+/*
+ * NAME StringUtil - string util
+ *
+ * DESC
+ *  - Current for iOS 9
+ *  - See diffs: (2015-10-04 17:43:24 +0800)
+ *  https://developer.apple.com/library/prerelease/ios/releasenotes/General/iOS90APIDiffs/Swift/Swift.html
+ *
+ * V. See below
+ */
+
+
 import Foundation
 
 
@@ -16,11 +28,64 @@ public class NSObjectString: NSObject {
  * NAME StringUtil - class StringUtil
  *
  * V
- *   - 1.0.0.1_2015100020800
+ *   - 1.0.0.2_2015100030800
  */
 public class StringUtil {
 	public static func toString () -> String {
-		return "StringUtilv1.0.0.0_2015100800"
+		return "StringUtilv1.0.0.2_201510030800"
+	}
+
+
+	/*
+	 * NAME toString - from String Array
+	 *
+	 * ARGS
+	 *  - struct Array<T>
+	 *  - struct String
+	 *
+	 * DESC
+	 *  - E.X. ["1", "2", "3"] -> "123"
+	 */
+	public static func toString (let fromStringArray sa: [String]) -> String {
+
+		var ret = ""
+
+		for s in sa {
+			ret += s
+		}
+
+		return ret
+	}
+
+
+	/*
+	 * NAME toString - from String Array and insert separator
+	 *
+	 * ARGS
+	 *  - struct Array<T>
+	 *  - struct String
+	 *  - ht if true always append sep to last
+	 */
+	public static func toString (let fromStringArray sa: [String],
+		insSeparator sep: String, hasTail ht: Bool) -> String {
+
+		var ret = ""
+
+		let c = sa.count
+
+		for i in 0..<c {
+			ret += sa[i] + sep
+		}
+
+		if let l = sa.last {
+			ret += l
+		}
+
+		if (ht) {
+			ret += sep
+		}
+
+		return ret
 	}
 
 
