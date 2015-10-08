@@ -33,6 +33,11 @@ class BufferUtil {
 	}
 
 
+	static func getBuffer (uint32_count c: Int) -> [UInt32] {
+		return [UInt32](count: c, repeatedValue: 0x0)
+	}
+
+
 	static func getBuffer (uint64_count c: Int) -> [UInt64] {
 		return [UInt64](count: c, repeatedValue: 0x0)
 	}
