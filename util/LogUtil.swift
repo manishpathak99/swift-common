@@ -44,7 +44,7 @@ public class LogUtil {
 		if (LogUtil.I >= LogUtil.logLevel) {
 			let trace: String = name + " +\(line) " + funcName
 
-			LogUtil.log(tag: t, items: LogUtil.TAG_V, items, trace)
+			LogUtil.log(tag: t, items: LogUtil.TAG_I, items, trace)
 		}
 #endif
 
