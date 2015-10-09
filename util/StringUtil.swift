@@ -28,11 +28,11 @@ public class NSObjectString: NSObject {
  * NAME StringUtil - class StringUtil
  *
  * V
- *   - 1.0.0.2_2015100030800
+ *   - 1.0.0.3_20151009175522800
  */
 public class StringUtil {
 	public static func toString () -> String {
-		return "StringUtilv1.0.0.2_201510030800"
+		return "StringUtilv1.0.0.3_20151009175522800"
 	}
 
 
@@ -86,6 +86,100 @@ public class StringUtil {
 		}
 
 		return ret
+	}
+
+
+	/**
+	* NAME toHexDataStr - fromData<br>
+	*   E.x. { '0', '9', 0xa } => { 30, 39, 10 }<br>
+	*   => { '3', '0',  '3', '9',  '1', '0' }<br>
+	*   => final result "303910"<br>
+	*
+	* NOTE
+	*   All lower case
+	*/
+	public static func toHexDataStr (let fromData d: [UInt8], start: Int,
+		count: Int) -> String? {
+		if ((start < 0) || (count < 0)
+			|| (d.count < (start + count))) {
+			return nil;
+		}
+
+		var ret = "";
+
+		for i in 0..<count {
+			let b = d[i + start]
+
+			let h = (b >> 4) & 0xf
+			if (h > 9) {
+				switch (h) {
+				case 0xa:
+					ret += "a"
+					break
+
+				case 0xb:
+					ret += "b"
+					break
+
+				case 0xc:
+					ret += "c"
+					break
+
+				case 0xd:
+					ret += "d"
+					break
+
+				case 0xe:
+					ret += "e"
+					break
+
+				case 0xf:
+					ret += "f"
+					break
+
+				default:
+					break
+				}
+			} else {
+				ret += "\(h)"
+			}
+
+			let l = b & 0xf
+			if (l > 9) {
+				switch (l) {
+				case 0xa:
+					ret += "a"
+					break
+
+				case 0xb:
+					ret += "b"
+					break
+
+				case 0xc:
+					ret += "c"
+					break
+
+				case 0xd:
+					ret += "d"
+					break
+
+				case 0xe:
+					ret += "e"
+					break
+
+				case 0xf:
+					ret += "f"
+					break
+
+				default:
+					break
+				}
+			} else {
+				ret += "\(l)"
+			}
+		}
+
+		return ret;
 	}
 
 
