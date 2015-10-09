@@ -12,7 +12,7 @@ public class ArrayList <T> {
 	/*
 	 * NAME init - init instance data
 	 */
-	public init () {
+	init () {
 		if (nil == self.data) {
 			self.data = [T]()
 		}
@@ -157,18 +157,20 @@ public class ArrayList <T> {
 
 		return ret!
 	}
+
+
 	/*
 	 * NAME enqueue - append and after-old-tail (be-the-latest-one)
 	 */
-	public final func enqueue (v: T) -> Bool {
+	public func enqueue (v: T) -> Bool {
 		return self.append(v)
 	}
 
 
 	/*
-	 * NAME dequeue - remove and get head (first is the enqueue head)
+	 * NAME dequeue - remove and get head (first is the dequeue head)
 	 */
-	public final func dequeue () -> T? {
+	public func dequeue () -> T? {
 		var ret: T?
 
 		self.LOCK()
@@ -236,20 +238,19 @@ public class ArrayList <T> {
 
 		self.UNLOCK()
 	}
-	
 
-	public func get (index: Int) -> T? {
+
+	public func get (index i: Int) -> T? {
 		var ret: T?
 
 		self.LOCK()
-		
+
 		if (nil == self.data) {
 			ret = nil
 		} else {
 			let c = self.data!.count
 
-			if (index >= 0 && c > index) {
-				let i = index
+			if (i >= 0 && c > i) {
 				ret = self.data![i]
 			} else {
 				ret = nil
@@ -261,7 +262,7 @@ public class ArrayList <T> {
 		return ret
 	}
 
-	
+
 	/* get all */
 	public func get () -> [T]? {
 		var ret: [T]?
@@ -415,16 +416,16 @@ public class ArrayList <T> {
 
 
 	/*
-	 * NAME _data - 储值属性
+	 * NAME _data
 	 */
 	private final var data: [T]?
 
 
 	/*
-	 * NAME LOCKED - var locked 储值
+	 * NAME LOCKED - var locked
 	 */
 	private final var LOCKED: Bool = false
 
 
-	private let LOCK_SLICE: UInt32 = UInt32(5 * 1e3)
+	private final let LOCK_SLICE: UInt32 = UInt32(5 * 1e3)
 }
