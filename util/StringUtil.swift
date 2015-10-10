@@ -89,6 +89,40 @@ public class StringUtil {
 	}
 
 
+	/*
+	 * NAME tocstring - from String
+	 *
+	 * DESC
+	 *   - String to "char *" use "encoding"
+	 */
+	public static func tocstring (let fromString s: String,
+		let encoding enc: NSStringEncoding)
+		-> [Int8]? {
+		return s.cStringUsingEncoding(enc)
+	}
+
+
+	public static func tocstring_2 (let fromString s: String,
+		encoding: NSStringEncoding)
+		-> [Int8]? {
+		/* e.x. NSUTF8StringEncoding */
+		let data = s.dataUsingEncoding(encoding, allowLossyConversion: false)
+
+		if (nil == data) {
+			return nil
+		}
+
+		let l = data!.length
+		var buf: [Int8] = [Int8](count: l, repeatedValue: 0x0)
+
+		LogUtil.v(tag: TAG, items: "len: \(l)")
+
+		data!.getBytes(&buf, length: l)
+
+		return buf
+	}
+
+
 	/**
 	* NAME toHexDataStr - fromData<br>
 	*   E.x. { '0', '9', 0xa } => { 30, 39, 10 }<br>
@@ -214,7 +248,7 @@ public class StringUtil {
 	 */
 	public static func cstringCount (let ofString s: String,
 		whenEncoding encoding: NSStringEncoding) -> Int {
-		if let cs = StringUtil.string2cstring(string: s, encoding: encoding) {
+		if let cs = StringUtil.tocstring(fromString: s, encoding: encoding) {
 			return cs.count
 		} else {
 			return -1
@@ -353,27 +387,6 @@ public class StringUtil {
 		-> String? {
 		/* e.x. NSUTF8StringEncoding */
 		return String(CString: s, encoding: encoding)
-	}
-
-
-	public static func string2cstring (string s: String,
-		encoding: NSStringEncoding)
-		-> [Int8]? {
-		/* e.x. NSUTF8StringEncoding */
-		let data = s.dataUsingEncoding(encoding, allowLossyConversion: false)
-
-		if (nil == data) {
-			return nil
-		}
-
-		let l = data!.length
-		var buf: [Int8] = [Int8](count: l, repeatedValue: 0x0)
-
-		LogUtil.v(tag: TAG, items: "len: \(l)")
-
-		data!.getBytes(&buf, length: l)
-
-		return buf
 	}
 
 
