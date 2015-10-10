@@ -89,6 +89,22 @@ public class StringUtil {
 	}
 
 
+	public static func toString (fromCstring s: UnsafeMutablePointer<Int8>,
+		encoding: NSStringEncoding)
+		-> String? {
+		/* e.x. NSUTF8StringEncoding */
+		return String(CString: s, encoding: encoding)
+	}
+
+
+	public static func toString (fromCstring2 s: [Int8],
+		encoding: NSStringEncoding)
+		-> String? {
+		/* e.x. NSUTF8StringEncoding */
+		return String(CString: s, encoding: encoding)
+	}
+
+
 	/*
 	 * NAME tocstring - from String
 	 *
@@ -115,7 +131,7 @@ public class StringUtil {
 		let l = data!.length
 		var buf: [Int8] = [Int8](count: l, repeatedValue: 0x0)
 
-		LogUtil.v(tag: TAG, items: "len: \(l)")
+		Log.v(tag: TAG, items: "len: \(l)")
 
 		data!.getBytes(&buf, length: l)
 
@@ -371,22 +387,6 @@ public class StringUtil {
 		s.removeRange(start...end)
 
 		return s
-	}
-
-
-	public static func cstring2string (cstring s: [Int8],
-		encoding: NSStringEncoding)
-		-> String? {
-		/* e.x. NSUTF8StringEncoding */
-		return String(CString: s, encoding: encoding)
-	}
-
-
-	public static func cstring2string (cstring s: UnsafeMutablePointer<Int8>,
-		encoding: NSStringEncoding)
-		-> String? {
-		/* e.x. NSUTF8StringEncoding */
-		return String(CString: s, encoding: encoding)
 	}
 
 
