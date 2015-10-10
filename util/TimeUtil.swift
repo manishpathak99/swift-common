@@ -60,7 +60,7 @@ public class TimeUtil {
 
 		let ret = BasicTypeUtil.double2uint64(from: _ret)
 
-		LogUtil.v(tag: TAG, items: "id: \(ret)")
+		Log.v(tag: TAG, items: "id: \(ret)")
 
 		return ret
 	}
