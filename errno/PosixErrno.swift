@@ -26,7 +26,7 @@ class PosixErrno {
 		}
 
 		let cs = strerror(en)
-		let ret = StringUtil.cstring2string(cstring: cs,
+		let ret = StringUtil.toString(fromCstring: cs,
 			encoding: NSUTF8StringEncoding)
 
 		if (nil != ret) {
