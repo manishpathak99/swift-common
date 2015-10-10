@@ -1,17 +1,17 @@
 import Foundation
 
 
-public class LogUtil {
+public class Log {
 	public static func trace (
 		let name: String = __FILE__,
 		let line: Int = __LINE__,
 		let funcName: String = __FUNCTION__) {
 
 #if 	ENABLE_LOG
-		if (LogUtil.T >= LogUtil.logLevel) {
+		if (Log.T >= Log.logLevel) {
 			let t: String = name + " +\(line) " + funcName
 
-			LogUtil.log(tag: LogUtil.TAG_T, items: t)
+			Log.log(tag: Log.TAG_T, items: t)
 		}
 #endif
 
@@ -19,16 +19,16 @@ public class LogUtil {
 
 
 	public static func v (
+		tag t: String?, items: Any ...,
 		let name: String = __FILE__,
 		let line: Int = __LINE__,
-		let funcName: String = __FUNCTION__,
-		tag t: String?, items: Any ...) {
+		let funcName: String = __FUNCTION__) {
 
 #if 	ENABLE_LOG
-		if (LogUtil.V >= LogUtil.logLevel) {
+		if (Log.V >= Log.logLevel) {
 			let trace: String = name + " +\(line) " + funcName
 
-			var msg: String = LogUtil.TAG_V
+			var msg: String = Log.TAG_V
 			if let tt = t {
 				msg += " " + tt
 			}
@@ -38,7 +38,7 @@ public class LogUtil {
 			}
 			msg += " ." + trace
 
-			LogUtil.log(msg)
+			Log.log(msg)
 		}
 #endif
 
@@ -46,16 +46,16 @@ public class LogUtil {
 
 
 	public static func t (
+		tag t: String?, items: Any ...,
 		let name: String = __FILE__,
 		let line: Int = __LINE__,
-		let funcName: String = __FUNCTION__,
-		tag t: String?, items: Any ...) {
+		let funcName: String = __FUNCTION__) {
 
 #if 	ENABLE_LOG
-		if (LogUtil.T >= LogUtil.logLevel) {
+		if (Log.T >= Log.logLevel) {
 			let trace: String = name + " +\(line) " + funcName
 
-			var msg: String = LogUtil.TAG_T
+			var msg: String = Log.TAG_T
 			if let tt = t {
 				msg += " " + tt
 			}
@@ -65,7 +65,7 @@ public class LogUtil {
 			}
 			msg += " ." + trace
 
-			LogUtil.log(msg)
+			Log.log(msg)
 		}
 #endif
 
@@ -73,16 +73,16 @@ public class LogUtil {
 
 
 	public static func i (
+		tag t: String?, items: Any ...,
 		let name: String = __FILE__,
 		let line: Int = __LINE__,
-		let funcName: String = __FUNCTION__,
-		tag t: String?, items: Any ...) {
+		let funcName: String = __FUNCTION__) {
 
 #if 	ENABLE_LOG
-		if (LogUtil.I >= LogUtil.logLevel) {
+		if (Log.I >= Log.logLevel) {
 			let trace: String = name + " +\(line) " + funcName
 
-			var msg: String = LogUtil.TAG_I
+			var msg: String = Log.TAG_I
 			if let tt = t {
 				msg += " " + tt
 			}
@@ -92,7 +92,7 @@ public class LogUtil {
 			}
 			msg += " ." + trace
 
-			LogUtil.log(msg)
+			Log.log(msg)
 		}
 #endif
 
@@ -100,16 +100,16 @@ public class LogUtil {
 
 
 	public static func w (
+		tag t: String?, items: Any ...,
 		let name: String = __FILE__,
 		let line: Int = __LINE__,
-		let funcName: String = __FUNCTION__,
-		tag t: String?, items: Any ...) {
+		let funcName: String = __FUNCTION__) {
 
 #if 	ENABLE_LOG
-		if (LogUtil.I >= LogUtil.logLevel) {
+		if (Log.I >= Log.logLevel) {
 			let trace: String = name + " +\(line) " + funcName
 
-			var msg: String = LogUtil.TAG_W
+			var msg: String = Log.TAG_W
 			if let tt = t {
 				msg += " " + tt
 			}
@@ -119,7 +119,7 @@ public class LogUtil {
 			}
 			msg += " ." + trace
 
-			LogUtil.log(msg)
+			Log.log(msg)
 		}
 #endif
 
@@ -127,16 +127,16 @@ public class LogUtil {
 
 
 	public static func e (
+		tag t: String?, items: Any ...,
 		let name: String = __FILE__,
 		let line: Int = __LINE__,
-		let funcName: String = __FUNCTION__,
-		tag t: String?, items: Any ...) {
+		let funcName: String = __FUNCTION__) {
 
 #if 	ENABLE_LOG
-		if (LogUtil.I >= LogUtil.logLevel) {
+		if (Log.I >= Log.logLevel) {
 			let trace: String = name + " +\(line) " + funcName
 
-			var msg: String = LogUtil.TAG_E
+			var msg: String = Log.TAG_E
 			if let tt = t {
 				msg += " " + tt
 			}
@@ -146,7 +146,7 @@ public class LogUtil {
 			}
 			msg += " ." + trace
 
-			LogUtil.log(msg)
+			Log.log(msg)
 		}
 #endif
 
@@ -156,7 +156,7 @@ public class LogUtil {
 	public static func log (level l: Int, tag: String?, items: Any ...) {
 
 #if 	ENABLE_LOG
-		if (l >= LogUtil.logLevel) {
+		if (l >= Log.logLevel) {
 			let ts = TimeUtil.timestampstring()
 
 			var msg = ts
@@ -237,5 +237,5 @@ public class LogUtil {
 	public static let TAG_W: String = "lvWARN"
 	public static let TAG_E: String = "lvERROR"
 	public static let TAG_F: String = "lvFATAL"
-	public static var logLevel: Int = LogUtil.V
+	public static var logLevel: Int = Log.V
 }
