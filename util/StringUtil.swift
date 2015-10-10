@@ -233,6 +233,51 @@ public class StringUtil {
 	}
 
 
+	public static func toInt (fromBinString s: String) -> Int64 {
+		if let ret = Int64(s, radix: 2) {
+			return ret
+		} else {
+			return 0
+		}
+	}
+
+
+	public static func toInt (fromOctString s: String) -> Int64 {
+		if let ret = Int64(s, radix: 8) {
+			return ret
+		} else {
+			return 0
+		}
+	}
+
+
+	public static func toInt (fromDecString s: String) -> Int64 {
+		if let ret = Int64(s, radix: 10) {
+			return ret
+		} else {
+			return 0
+		}
+	}
+
+
+	public static func toInt (fromHexString s: String) -> Int64 {
+		if let ret = Int64(s, radix: 16) {
+			return ret
+		} else {
+			return 0
+		}
+	}
+
+
+	public static func toInt (fromString s: String, radix r: Int) -> Int64 {
+		if let ret = Int64(s, radix: r) {
+			return ret
+		} else {
+			return 0
+		}
+	}
+
+
 	/*
 	 * NAME split - split string by ONE Character to strings
 	 */
@@ -308,7 +353,8 @@ public class StringUtil {
 	 * DESC
 	 *   - from start Char index and count Chars
 	 */
-	public static func substring (let ofString s: String, fromCharIndex ib: Int,
+	public static func substring (let ofString s: String,
+		fromCharIndex ib: Int,
 		count c: Int) -> String? {
 		let ec = s.characters.count
 

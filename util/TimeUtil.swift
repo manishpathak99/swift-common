@@ -66,5 +66,9 @@ public class TimeUtil {
 	}
 
 
+	public static func currentMicrosecond () -> UInt64 {
+		return TimeUtil.makeid()
+	}
+
 	private static let TAG: String = TimeUtil.toString()
 }
