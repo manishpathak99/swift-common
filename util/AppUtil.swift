@@ -27,21 +27,61 @@ public final class AppUtil {
 		
 		return resPath
 	}
-	
-	
-	/* get launch count value */
-	public static func getAppLaunchCount () -> Int {
-		let ud = NSUserDefaults.standardUserDefaults()
-		let launchCount = ud.integerForKey("LaunchCount")
-		
-		return launchCount
+
+
+	public static func getAppGourpPath (group g: String) -> String? {
+
+		/* get path to shared group folder */
+		let fm = NSFileManager.defaultManager()
+
+		if let url = fm.containerURLForSecurityApplicationGroupIdentifier(g) {
+			return url.path
+		} else {
+			return nil
+		}
 	}
-	
-	
-	/* get launch count value */
-	public static func setAppLaunchCount (count c: Int) {
+
+
+	/* get app int value */
+	public static func getAppIntValue (byKey key: String) -> Int {
 		let ud = NSUserDefaults.standardUserDefaults()
-		ud.setInteger(c, forKey: "LaunchCount")
+		let v = ud.integerForKey(key)
+
+		return v
+	}
+
+
+	/* set app int value */
+	public static func setAppIntValue (value v: Int, forKey fk: String) {
+		let ud = NSUserDefaults.standardUserDefaults()
+		ud.setInteger(v, forKey: fk)
+		ud.synchronize()
+	}
+
+
+	/* get app string value */
+	public static func getAppStringValue (byKey key: String) -> String? {
+		let ud = NSUserDefaults.standardUserDefaults()
+		let v = ud.stringForKey(key)
+
+		return v
+	}
+
+
+	/* set app string value */
+	public static func setAppStringValue (value v: AnyObject?,
+		forKey fk: String) {
+		let ud = NSUserDefaults.standardUserDefaults()
+		ud.setObject(v, forKey: fk)
+		ud.synchronize()
+	}
+
+
+	/* remove by key */
+	public static func removeAppObject (byKey k: String) {
+		let ud = NSUserDefaults.standardUserDefaults()
+
+		ud.removeObjectForKey(k)
 		ud.synchronize()
 	}
 }
