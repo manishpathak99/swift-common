@@ -105,12 +105,38 @@ public class StringUtil {
 	}
 
 
+	public static func toString (fromErrno en: Int32)
+		-> String {
+		let _ret = strerror(en)
+
+		let reto = StringUtil.toString(fromCstring: _ret,
+			encoding: NSUTF8StringEncoding)
+
+		if let ret = reto {
+			return ret
+		} else {
+			return "errno: \(en)"
+		}
+	}
+
+
 	/*
 	 * NAME tocstring - from String
 	 *
 	 * DESC
 	 *   - String to "char *" use "encoding"
 	 */
+	public static func tocstringArray (let fromString s: String,
+		let encoding enc: NSStringEncoding)
+		-> array<Int8>? {
+
+		let ret = array<Int8>()
+		ret.data = s.cStringUsingEncoding(enc)
+
+		return ret
+	}
+
+
 	public static func tocstring (let fromString s: String,
 		let encoding enc: NSStringEncoding)
 		-> [Int8]? {

@@ -170,6 +170,11 @@ public class Log {
 			}
 
 			print(msg)
+			Log.readyFile()
+			let ap = StringUtil.tocstringArray(fromString: msg,
+				encoding: NSUTF8StringEncoding)
+			ap!.data!.append(10)
+			FileIO.append(int8_data: ap!, toFile: Log.logFile!)
 		}
 #endif
 
@@ -192,6 +197,11 @@ public class Log {
 		}
 
 		print(msg)
+		Log.readyFile()
+		let ap = StringUtil.tocstringArray(fromString: msg,
+			encoding: NSUTF8StringEncoding)
+		ap!.data!.append(10)
+		FileIO.append(int8_data: ap!, toFile: Log.logFile!)
 #endif
 
 	}
@@ -209,6 +219,11 @@ public class Log {
 		}
 
 		print(msg)
+		Log.readyFile()
+		let ap = StringUtil.tocstringArray(fromString: msg,
+			encoding: NSUTF8StringEncoding)
+		ap!.data!.append(10)
+		FileIO.append(int8_data: ap!, toFile: Log.logFile!)
 #endif
 
 	}
@@ -222,6 +237,36 @@ public class Log {
 
 	}
 
+
+	public static func readyFile () {
+#if 	ENABLE_LOG
+		let td = TimeUtil.todayName()
+
+		if ( ((nil != Log.fileLogDate) && (td > Log.fileLogDate!))
+			|| (nil == Log.fileLogDate)) {
+			Log.fileLogDate = td
+			let dp = AppUtil.getAppDocPath()
+
+			Log.fileLog = dp! + "/log/" + td + ".log"
+			FileUtil.Mkdir(dir: dp! + "/log", parent: false)
+
+			if (nil == Log.logFile) {
+				Log.logFile = FileAppend(withToPath: Log.fileLog!,
+					oflag: O_WRONLY | O_APPEND | O_CREAT,
+					createMode:
+					mode_t(StringUtil.toInt(fromOctString: "664")))
+				if (nil == Log.logFile) {
+					print("ERROR")
+				}
+			} else {
+				Log.logFile!.reinit(withToPath: Log.fileLog!,
+					oflag: O_WRONLY | O_APPEND | O_CREAT,
+					createMode:
+					mode_t(StringUtil.toInt(fromOctString: "664")))
+			}
+		}
+#endif
+	}
 
 	public static let V: Int = 8
 	public static let D: Int = 9
@@ -238,4 +283,8 @@ public class Log {
 	public static let TAG_E: String = "lvERROR"
 	public static let TAG_F: String = "lvFATAL"
 	public static var logLevel: Int = Log.V
+
+	private static var logFile: FileAppend?
+	private static var fileLog: String?
+	private static var fileLogDate: String?
 }

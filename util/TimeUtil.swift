@@ -24,6 +24,30 @@ public class TimeUtil {
 	}
 
 
+	public static func timestampName () -> String {
+		let now = NSDate()
+
+		let formatter: NSDateFormatter = NSDateFormatter()
+		formatter.dateFormat = "yyyyMMddHHmmss"
+
+		let s = formatter.stringFromDate(now)
+
+		return s
+	}
+
+
+	public static func todayName () -> String {
+		let now = NSDate()
+
+		let formatter: NSDateFormatter = NSDateFormatter()
+		formatter.dateFormat = "yyyyMMdd"
+
+		let s = formatter.stringFromDate(now)
+
+		return s
+	}
+
+
 	public static func timestampstring () -> String {
 		let _nowUs = TimeUtil.now()
 		let us = _nowUs.tv_usec
