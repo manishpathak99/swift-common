@@ -12,13 +12,19 @@ public class TimeUtil {
 	}
 
 
-	public static func timestampStr () -> String {
-		let now = NSDate()
+	public static func timestampStr (time t: NSDate? = nil) -> String {
+		var tt: NSDate?
+
+		if (nil == t) {
+			tt = NSDate()
+		} else {
+			tt = t
+		}
 
 		let formatter: NSDateFormatter = NSDateFormatter()
 		formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
 
-		let s = formatter.stringFromDate(now)
+		let s = formatter.stringFromDate(tt!)
 
 		return s
 	}

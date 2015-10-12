@@ -90,17 +90,22 @@ public class StringUtil {
 
 
 	public static func toString (fromCstring s: UnsafeMutablePointer<Int8>,
-		encoding: NSStringEncoding)
+		encoding: NSStringEncoding = NSUTF8StringEncoding)
 		-> String? {
-		/* e.x. NSUTF8StringEncoding */
 		return String(CString: s, encoding: encoding)
 	}
 
 
 	public static func toString (fromCstring2 s: [Int8],
-		encoding: NSStringEncoding)
+		encoding: NSStringEncoding = NSUTF8StringEncoding)
 		-> String? {
-		/* e.x. NSUTF8StringEncoding */
+		return String(CString: s, encoding: encoding)
+	}
+
+
+	public static func toString (fromCstring3 s: UnsafePointer<Int8>,
+		encoding: NSStringEncoding = NSUTF8StringEncoding)
+		-> String? {
 		return String(CString: s, encoding: encoding)
 	}
 
@@ -127,7 +132,7 @@ public class StringUtil {
 	 *   - String to "char *" use "encoding"
 	 */
 	public static func tocstringArray (let fromString s: String,
-		let encoding enc: NSStringEncoding)
+		let encoding enc: NSStringEncoding = NSUTF8StringEncoding)
 		-> array<Int8>? {
 
 		let ret = array<Int8>()
@@ -138,14 +143,14 @@ public class StringUtil {
 
 
 	public static func tocstring (let fromString s: String,
-		let encoding enc: NSStringEncoding)
+		let encoding enc: NSStringEncoding = NSUTF8StringEncoding)
 		-> [Int8]? {
 		return s.cStringUsingEncoding(enc)
 	}
 
 
 	public static func tocstring_2 (let fromString s: String,
-		encoding: NSStringEncoding)
+		encoding: NSStringEncoding = NSUTF8StringEncoding)
 		-> [Int8]? {
 		/* e.x. NSUTF8StringEncoding */
 		let data = s.dataUsingEncoding(encoding, allowLossyConversion: false)
@@ -334,7 +339,8 @@ public class StringUtil {
 	 * NAME cstringCount - c string count whenEncoding is encoding
 	 */
 	public static func cstringCount (let ofString s: String,
-		whenEncoding encoding: NSStringEncoding) -> Int {
+		whenEncoding encoding: NSStringEncoding = NSUTF8StringEncoding)
+		-> Int {
 		if let cs = StringUtil.tocstring(fromString: s, encoding: encoding) {
 			return cs.count
 		} else {
@@ -347,7 +353,8 @@ public class StringUtil {
 	 * NAME dataCount - c string count whenEncoding is encoding
 	 */
 	public static func dataCount (let ofString s: String,
-		whenEncoding encoding: NSStringEncoding) -> Int {
+		whenEncoding encoding: NSStringEncoding = NSUTF8StringEncoding)
+		-> Int {
 		return StringUtil.cstringCount(ofString: s, whenEncoding: encoding)
 	}
 

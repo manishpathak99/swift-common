@@ -31,3 +31,18 @@ public class BasicTypeUtil {
 		return Double(i32)
 	}
 }
+
+
+public class TypeUtil {
+	public static func cdata2uint8x (from data: UnsafePointer<Void>,
+		size: size_t) -> array<UInt8> {
+
+		let ret = array<UInt8>(count: UInt(size), repeatedValue: 0x0)
+
+		for i in 0..<size {
+			ret.data![i] = UInt8(data[i])
+		}
+
+		return ret
+	}
+}

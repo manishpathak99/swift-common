@@ -1,7 +1,50 @@
 import Foundation
 
 
-public class array <T> {
+public class array_item_generator<T>: GeneratorType {
+	public init (data dt: [T]?) {
+
+		self.counter = 0
+		if (nil != dt) {
+			self.count = dt!.count
+			self.data = dt
+		}
+	}
+
+
+	public func next() -> T? {
+		return (self.counter >= self.count) ? nil
+			: self.data?[self.counter++]
+	}
+
+
+	private var data: [T]?
+	private var counter: Int = 0
+	private var count: Int = 0
+}
+
+
+public class array <T>: SequenceType {
+	subscript (index: Int) -> T? {
+		get {
+			return self.data?[index]
+		}
+
+		set {
+			if let nv = newValue {
+				self.data?[index] = nv
+			}
+		}
+	}
+
+
+	public typealias Generator = array_item_generator<T>
+
+	public func generate() -> Generator {
+		return Generator(data: self.data)
+	}
+
+
 	public init () {
 		LOCK()
 
@@ -18,6 +61,45 @@ public class array <T> {
 			self.data = [T]()
 		} else {
 			self.data = [T](count: Int(c), repeatedValue: rv)
+		}
+
+		UNLOCK()
+	}
+
+
+	public init (values vs: [T]) {
+		LOCK()
+
+		self.data = vs
+
+		UNLOCK()
+	}
+
+
+	public init (values vs: [T], start: UInt, count: UInt) {
+		LOCK()
+
+		if ((vs.count <= 0) || (count <= 0)) {
+			self.data = [T]()
+		} else {
+			let bsc = UInt(vs.count)
+			var s = start
+
+			if (s < 0) {
+				s = 0
+			} else if (s >= bsc) {
+				s = bsc - 1
+			}
+
+			var c = count
+			if ((s + c) > bsc) {
+				c = bsc - s
+			}
+
+			self.data = [T](count: Int(c), repeatedValue: vs.first!)
+			for i: UInt in 0..<c {
+				self.data![Int(i)] = vs[Int(start + i)]
+			}
 		}
 
 		UNLOCK()
@@ -81,6 +163,16 @@ public class array <T> {
 		UNLOCK()
 
 		return ret!
+	}
+
+
+	public var count: Int {
+		let reto = self.data?.count
+		if let ret = reto {
+			return ret
+		} else {
+			return 0
+		}
 	}
 
 
