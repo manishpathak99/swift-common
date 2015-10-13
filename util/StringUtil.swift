@@ -13,6 +13,11 @@
 import Foundation
 
 
+@asmname("snprintf")
+func __c_snprintf(str: UnsafePointer<Int8>, size: size_t,
+	let format: UnsafePointer<Int8>, args: Any ...) -> Int32
+
+
 /*
  * NAME NSObjectString - class NSObjectString
  *
@@ -86,6 +91,29 @@ public class StringUtil {
 		}
 
 		return ret
+	}
+
+
+	public static func toString (let bySnprintfFmt fmt: String,
+		maxResultBytes: size_t,
+		encoding: NSStringEncoding = NSUTF8StringEncoding,
+		args: Any ...) -> (code: Int32, result: String?) {
+
+		let cfmto = StringUtil.tocstring(fromString: fmt, encoding: encoding)
+
+		if (nil == cfmto) {
+			return (-EINVAL, nil)
+		}
+
+		let cfmt = cfmto!
+
+		var buf = BufferUtil.getBuffer(int8_count: 1024)
+		let cs =
+			__c_snprintf(&buf, size: maxResultBytes, format: cfmt, args: args)
+
+		let ret = StringUtil.toString(fromCstring2: buf)
+
+		return (cs, ret)
 	}
 
 

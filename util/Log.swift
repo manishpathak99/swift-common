@@ -245,7 +245,13 @@ public class Log {
 		if ( ((nil != Log.fileLogDate) && (td > Log.fileLogDate!))
 			|| (nil == Log.fileLogDate)) {
 			Log.fileLogDate = td
-			let dp = AppUtil.getAppDocPath()
+#if			os (iOS)
+			let dp = AppUtil.appDocPath
+#endif
+
+#if	os (OSX)
+			let dp = FileUtil.userDocPath
+#endif
 
 			Log.fileLog = dp! + "/log/" + td + ".log"
 			FileUtil.Mkdir(dir: dp! + "/log", parent: false)

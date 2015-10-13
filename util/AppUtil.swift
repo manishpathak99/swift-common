@@ -12,23 +12,6 @@ import AppKit
 
 
 public final class AppUtil {
-	/* get app's document path */
-	public static func getAppDocPath () -> String? {
-		let docPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory,
-			.UserDomainMask, true).first
-		
-		return docPath
-	}
-	
-	
-	/* get app's res path */
-	public static func getAppResPath () -> String? {
-		let resPath = NSBundle.mainBundle().resourcePath
-		
-		return resPath
-	}
-
-
 	public static func getAppGourpPath (group g: String) -> String? {
 
 		/* get path to shared group folder */
@@ -84,4 +67,29 @@ public final class AppUtil {
 		ud.removeObjectForKey(k)
 		ud.synchronize()
 	}
+
+
+#if os (iOS)
+	/* get app's document path */
+	public static var appDocPath: String? {
+		get {
+			let docPath = NSSearchPathForDirectoriesInDomains(
+				.DocumentDirectory,
+				.UserDomainMask, true).first
+
+			return docPath
+		}
+	}
+#endif
+
+	/* get app's res path */
+	public static var appResPath: String? {
+		get {
+			let resPath = NSBundle.mainBundle().resourcePath
+
+			return resPath
+		}
+	}
+
+
 }
