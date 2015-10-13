@@ -153,6 +153,33 @@ public class Log {
 	}
 
 
+	public static func lmax (
+		tag t: String?, items: Any ...,
+		let name: String = __FILE__,
+		let line: Int = __LINE__,
+		let funcName: String = __FUNCTION__) {
+
+/* #if 	ENABLE_LOG */
+		/* if (Log.LMAX >= Log.logLevel) { */
+		let trace: String = name + " +\(line) " + funcName
+
+		var msg: String = Log.TAG_LMAX
+		if let tt = t {
+			msg += " " + tt
+		}
+
+		for i in items {
+			msg += " \(i)"
+		}
+		msg += " ." + trace
+
+		Log.log(msg)
+		/* } */
+/* #endif */
+
+	}
+
+
 	public static func log (level l: Int, tag: String?, items: Any ...) {
 
 #if 	ENABLE_LOG
@@ -281,6 +308,7 @@ public class Log {
 	public static let W: Int = 32
 	public static let E: Int = 40
 	public static let F: Int = 48
+	public static let LMAX: Int = Int.max
 	public static let TAG_V: String = "lvVERBOSE"
 	public static let TAG_D: String = "lvDEBUG"
 	public static let TAG_T: String = "lvTRACE"
@@ -288,6 +316,8 @@ public class Log {
 	public static let TAG_W: String = "lvWARN"
 	public static let TAG_E: String = "lvERROR"
 	public static let TAG_F: String = "lvFATAL"
+	public static let TAG_LMAX: String = "!!!!!MAX"
+
 	public static var logLevel: Int = Log.V
 
 	private static var logFile: FileAppend?
