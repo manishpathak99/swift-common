@@ -92,6 +92,10 @@ public class StringUtil {
 	public static func toString (fromCstring s: UnsafeMutablePointer<Int8>,
 		encoding: NSStringEncoding = NSUTF8StringEncoding)
 		-> String? {
+		if (nil == s) {
+			return nil
+		}
+
 		return String(CString: s, encoding: encoding)
 	}
 
@@ -106,6 +110,10 @@ public class StringUtil {
 	public static func toString (fromCstring3 s: UnsafePointer<Int8>,
 		encoding: NSStringEncoding = NSUTF8StringEncoding)
 		-> String? {
+		if (nil == s) {
+			return nil
+		}
+
 		return String(CString: s, encoding: encoding)
 	}
 
