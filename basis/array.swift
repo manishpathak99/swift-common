@@ -24,7 +24,7 @@ public class array_item_generator<T>: GeneratorType {
 }
 
 
-public class array <T>: SequenceType {
+public class array<T>: SequenceType {
 	subscript (index: Int) -> T? {
 		get {
 			LOCK()
@@ -60,7 +60,9 @@ public class array <T>: SequenceType {
 	public init () {
 		LOCK()
 
-		self.data = [T]()
+		if (nil == self.data) {
+			self.data = [T]()
+		}
 
 		UNLOCK()
 	}
@@ -358,6 +360,168 @@ public class array <T>: SequenceType {
 				for ins in i..<e {
 					self.data!.insert(vs[ins - i], atIndex: ins)
 				}
+				ret = true
+			} else {
+				ret = false
+			}
+		}
+
+		self.UNLOCK()
+
+		return ret!
+	}
+
+
+	/*
+	 * NAME enqueue - append and after-old-tail (be-the-latest-one)
+	 */
+	public func enqueue (v: T) -> Bool {
+		return self.append(v)
+	}
+
+
+	/*
+	 * NAME dequeue - remove and get head (first is the dequeue head)
+	 */
+	public func dequeue () -> T? {
+		var ret: T?
+
+		self.LOCK()
+
+		if (nil == self.data) {
+			ret = nil
+		} else {
+			let c = self.data!.count
+
+			if (c > 0) {
+				ret = self.data!.removeFirst()
+			} else {
+				ret = nil
+			}
+		}
+
+		self.UNLOCK()
+
+		return ret
+	}
+
+
+	/*
+	 * NAME push - append and as top (latest-one)
+	 */
+	public final func push (v: T) -> Bool {
+		return self.append(v)
+	}
+
+
+	/*
+	 * NAME pop - remove and get top (last is latest append one)
+	 */
+	public final func pop () -> T? {
+		var ret: T?
+
+		self.LOCK()
+
+		if (nil == self.data) {
+			ret = nil
+		} else {
+			let c = self.data!.count
+
+			if (c > 0) {
+				ret = self.data!.removeLast()
+			} else {
+				ret = nil
+			}
+		}
+
+		self.UNLOCK()
+
+		return ret
+	}
+
+
+	public func getLast () -> T? {
+		var ret: T?
+
+		self.LOCK()
+
+		if (nil == self.data) {
+			ret = nil
+		} else {
+			let c = self.data!.count
+
+			if (c > 0) {
+				ret = self.data![c - 1]
+			} else {
+				ret = nil
+			}
+		}
+
+		self.UNLOCK()
+
+		return ret
+	}
+
+
+	public func setLast (v: T) -> Bool {
+		var ret: Bool?
+
+		self.LOCK()
+
+		if (nil == self.data) {
+			ret = false
+		} else {
+			let c = self.data!.count
+
+			if (c > 0) {
+				self.data![c - 1] = v
+				ret = true
+			} else {
+				ret = false
+			}
+		}
+
+		self.UNLOCK()
+
+		return ret!
+	}
+
+
+	public func getFirst () -> T? {
+		var ret: T?
+
+		self.LOCK()
+
+		if (nil == self.data) {
+			ret = nil
+		} else {
+			let c = self.data!.count
+
+			if (c > 0) {
+				ret = self.data![0]
+			} else {
+				ret = nil
+			}
+		}
+
+		self.UNLOCK()
+
+		return ret
+	}
+
+
+	public func setFirst (v: T) -> Bool {
+		var ret: Bool?
+
+		self.LOCK()
+
+		if (nil == self.data) {
+			ret = false
+		} else {
+			let c = self.data!.count
+
+			if (c > 0) {
+				self.data![0] = v
 				ret = true
 			} else {
 				ret = false
