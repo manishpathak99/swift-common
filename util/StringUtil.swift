@@ -13,11 +13,6 @@
 import Foundation
 
 
-@asmname("snprintf")
-func __c_snprintf(str: UnsafePointer<Int8>, size: size_t,
-	let format: UnsafePointer<Int8>, args: Any ...) -> Int32
-
-
 /*
  * NAME NSObjectString - class NSObjectString
  *
@@ -94,26 +89,13 @@ public class StringUtil {
 	}
 
 
-	public static func toString (let bySnprintfFmt fmt: String,
-		maxResultBytes: size_t,
-		encoding: NSStringEncoding = NSUTF8StringEncoding,
-		args: Any ...) -> (code: Int32, result: String?) {
+	public static func toString (let byFormat fmt: String,
+		args: [CVarArgType]) -> String {
 
-		let cfmto = StringUtil.tocstring(fromString: fmt, encoding: encoding)
+		let ret = String(format: fmt, arguments: args)
 
-		if (nil == cfmto) {
-			return (-EINVAL, nil)
-		}
+		return ret /* success */
 
-		let cfmt = cfmto!
-
-		var buf = BufferUtil.getBuffer(int8_count: 1024)
-		let cs =
-			__c_snprintf(&buf, size: maxResultBytes, format: cfmt, args: args)
-
-		let ret = StringUtil.toString(fromCstring2: buf)
-
-		return (cs, ret)
 	}
 
 
@@ -178,14 +160,14 @@ public class StringUtil {
 	}
 
 
-	public static func tocstring (let fromString s: String,
+	public static func toCString (let fromString s: String,
 		let encoding enc: NSStringEncoding = NSUTF8StringEncoding)
 		-> [Int8]? {
 		return s.cStringUsingEncoding(enc)
 	}
 
 
-	public static func tocstring_2 (let fromString s: String,
+	public static func toCString_2 (let fromString s: String,
 		encoding: NSStringEncoding = NSUTF8StringEncoding)
 		-> [Int8]? {
 		/* e.x. NSUTF8StringEncoding */
@@ -206,111 +188,73 @@ public class StringUtil {
 	}
 
 
-	public static func toHexDataStr (let fromCstring d: [Int8], start: Int,
-		count: Int) -> String? {
+	public static func toHexDataStr (let fromCString arr: [Int8],
+		start: Int = 0,
+		count: size_t? = nil,
+		uppercase: Bool = false) -> String? {
 
-		if let u = TypeUtil.cstring2uint8x(fromCstring: d, size: d.count) {
-			return StringUtil.toHexDataStr(fromData: u, start: start,
-				count: count)
-		} else {
+		let cc = ArrayChecker.check(array: arr, start: start, count: count)
+
+		if (cc < 0) {
 			return nil
 		}
+
+		var ret = ""
+		var f: String?
+
+		if (uppercase) {
+			f = "%.2X"
+		} else {
+			f = "%.2x"
+		}
+
+		for i in 0..<cc {
+			let b = arr[i + start]
+
+			ret += String(format: f!, b)
+		}
+
+		return ret
 
 	}
 
 
 	/**
-	* NAME toHexDataStr - fromData<br>
-	*   E.x. { '0', '9', 0xa } => { 30, 39, 10 }<br>
-	*   => { '3', '0',  '3', '9',  '1', '0' }<br>
-	*   => final result "303910"<br>
-	*
-	* NOTE
-	*   All lower case
-	*/
-	public static func toHexDataStr (let fromData d: array<UInt8>, start: Int,
-		count: Int) -> String? {
+	 * NAME toHexDataStr - fromData<br>
+	 *   E.x. { '0', '9', 0xa } => { 30, 39, 10 }<br>
+	 *   => { '3', '0',  '3', '9',  '1', '0' }<br>
+	 *   => final result "303910"<br>
+	 *
+	 * NOTE
+	 *   All lower case
+	 */
+	public static func toHexDataStr (let fromData arr: [UInt8],
+		start: Int = 0,
+		count: size_t? = nil,
+		uppercase: Bool = false) -> String? {
 
-		if ((start < 0) || (count < 0)
-			|| (d.count < (start + count))) {
-			return nil;
+		let cc = ArrayChecker.check(array: arr, start: start, count: count)
+
+		if (cc < 0) {
+			return nil
 		}
 
-		var ret = "";
+		var ret = ""
+		var f: String?
 
-		for i in 0..<count {
-			let b = d[i + start]!
-
-			let h = (b >> 4) & 0xf
-			if (h > 9) {
-				switch (h) {
-				case 0xa:
-					ret += "a"
-					break
-
-				case 0xb:
-					ret += "b"
-					break
-
-				case 0xc:
-					ret += "c"
-					break
-
-				case 0xd:
-					ret += "d"
-					break
-
-				case 0xe:
-					ret += "e"
-					break
-
-				case 0xf:
-					ret += "f"
-					break
-
-				default:
-					break
-				}
-			} else {
-				ret += "\(h)"
-			}
-
-			let l = b & 0xf
-			if (l > 9) {
-				switch (l) {
-				case 0xa:
-					ret += "a"
-					break
-
-				case 0xb:
-					ret += "b"
-					break
-
-				case 0xc:
-					ret += "c"
-					break
-
-				case 0xd:
-					ret += "d"
-					break
-
-				case 0xe:
-					ret += "e"
-					break
-
-				case 0xf:
-					ret += "f"
-					break
-
-				default:
-					break
-				}
-			} else {
-				ret += "\(l)"
-			}
+		if (uppercase) {
+			f = "%.2X"
+		} else {
+			f = "%.2x"
 		}
 
-		return ret;
+		for i in 0..<cc {
+			let b = arr[i + start]
+
+			ret += String(format: f!, b)
+		}
+
+		return ret
 	}
 
 
@@ -359,6 +303,32 @@ public class StringUtil {
 	}
 
 
+	public static func toData (let fromString s: String,
+		let encoding enc: NSStringEncoding = NSUTF8StringEncoding)
+		-> [UInt8]? {
+
+		/* check */
+		if (s.isEmpty) {
+			return [0x0]
+		}
+
+		let nsdata = s.dataUsingEncoding(enc, allowLossyConversion: false)
+
+		if (nil == nsdata) {
+			return nil
+		} else {
+		}
+
+		let l = nsdata!.length
+		var buf: [UInt8] = [UInt8](count: l, repeatedValue: 0x0)
+
+		nsdata!.getBytes(&buf, length: l)
+
+		return buf
+
+	}
+
+
 	/*
 	 * NAME split - split string by ONE Character to strings
 	 */
@@ -391,11 +361,13 @@ public class StringUtil {
 	public static func cstringCount (let ofString s: String,
 		whenEncoding encoding: NSStringEncoding = NSUTF8StringEncoding)
 		-> Int {
-		if let cs = StringUtil.tocstring(fromString: s, encoding: encoding) {
+
+		if let cs = StringUtil.toCString(fromString: s, encoding: encoding) {
 			return cs.count
 		} else {
 			return -1
 		}
+
 	}
 
 
@@ -415,7 +387,8 @@ public class StringUtil {
 	 * DESC
 	 *   - from start Char index to end(no end)
 	 */
-	public static func substring (let ofString s: String, fromCharIndex ib: Int,
+	public static func substring (let ofString s: String,
+		fromCharIndex ib: Int,
 		to ie: Int) -> String? {
 		let c = s.characters.count
 
