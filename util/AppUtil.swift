@@ -1,5 +1,15 @@
-// AppUtil.swift
-// 15/10/11.
+/*
+ * NAME AppUtil.swift - app util
+ *
+ * SEE
+ *   - https://github.com/mozilla/firefox-ios/blob/master/Utils/AppInfo.swift
+ *
+ * C. 15/10/11.
+ *
+ * V.
+ *   - 1.0.0.0 - TODO
+ */
+
 
 import Foundation
 
@@ -92,4 +102,11 @@ public final class AppUtil {
 	}
 
 
+	/* get app version */
+	public static var appVersion: String? {
+		return NSBundle
+			.mainBundle()
+			.objectForInfoDictionaryKey("CFBundleShortVersionString")
+			as? String
+	}
 }
