@@ -34,38 +34,90 @@ public class BasicTypeUtil {
 
 
 public class TypeUtil {
-	public static func cstring2uint8x (fromCstring cs: [Int8],
-		size: size_t) -> array<UInt8>? {
 
-		if ((size < 0) || (size > cs.count)) {
+	public static func int8x2data (int8x arr: [Int8],
+		start: Int = 0, count: size_t? = nil) -> [UInt8]? {
+
+		let cc = ArrayChecker.check(array: arr, start: start, count: count)
+
+		if (cc < 0) {
 			return nil
 		}
 
-		let ret = array<UInt8>(count: UInt(size), repeatedValue: 0x0)
+		if (0 == cc) {
+			/* empty */
+			return [UInt8]()
+		} else {
+			let nsdata = NSData(bytes: arr, length: cc)
+			var buf = [UInt8](count: cc, repeatedValue: 0x0)
 
-		for i in 0..<size {
-			ret.data![i] = UInt8(cs[i])
+			nsdata.getBytes(&buf, range: NSRange(start..<(start + cc)))
+
+			return buf
 		}
-
-		return ret
 
 	}
 
 
-	public static func cdata2uint8x (from data: UnsafePointer<Void>,
-		size: size_t) -> array<UInt8>? {
+	public static func int8x2data (allInt8x arr: [Int8]) -> [UInt8] {
 
-		if ((nil == data) || (size < 0)) {
+		if (0 == arr.count) {
+			/* empty */
+			return [UInt8]()
+		} else {
+			let c = arr.count
+
+			let nsdata = NSData(bytes: arr, length: c)
+			var buf = [UInt8](count: c, repeatedValue: 0x0)
+
+			nsdata.getBytes(&buf, length: c)
+
+			return buf
+		}
+
+	}
+
+
+	public static func data2int8x (data arr: [UInt8],
+		start: Int = 0, count: size_t? = nil) -> [Int8]? {
+
+		let cc = ArrayChecker.check(array: arr, start: start, count: count)
+
+		if (cc < 0) {
 			return nil
 		}
 
-		let ret = array<UInt8>(count: UInt(size), repeatedValue: 0x0)
+		if (0 == cc) {
+			/* empty */
+			return [Int8]()
+		} else {
+			let nsdata = NSData(bytes: arr, length: cc)
+			var buf = [Int8](count: cc, repeatedValue: 0x0)
 
-		for i in 0..<size {
-			ret.data![i] = UInt8(data[i])
+			nsdata.getBytes(&buf, range: NSRange(start..<(start + cc)))
+
+			return buf
 		}
 
-		return ret
+	}
+
+
+	public static func data2int8x (allData arr: [UInt8]) -> [Int8] {
+
+		if (0 == arr.count) {
+			/* empty */
+			return [Int8]()
+		} else {
+			let c = arr.count
+
+			let nsdata = NSData(bytes: arr, length: c)
+			var buf = [Int8](count: c, repeatedValue: 0x0)
+
+			nsdata.getBytes(&buf, length: c)
+
+			return buf
+		}
 
 	}
+
 }
