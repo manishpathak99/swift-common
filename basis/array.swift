@@ -189,18 +189,47 @@ public class array<T>: SequenceType {
 	}
 
 
+	/*
+	 * get parts static
+	 * thread safe
+	 */
+	public static func get (fromArray arr: [T], start: Int, count: size_t)
+		-> [T]? {
+
+		let cc = ArrayChecker.check(array: arr, start: start, count: count)
+
+		if (cc < 0) {
+			return nil
+		} else {
+			if (cc > 0) {
+				let rv = arr[0]
+				var ret = [T](count: cc, repeatedValue: rv)
+
+				for i in start..<(start + count) {
+					ret[i - start] = arr[i]
+				}
+
+				return ret
+			} else {
+				return [T]()
+			}
+		}
+
+	}
+
+
 	/* get parts */
-	public func get (fromStart s: UInt64, count: UInt64) -> [T]? {
+	public func get (fromStart s: Int, count: Int) -> [T]? {
 		var ret: [T]?
 
 		LOCK()
 
-		if ((nil == self.data) || (count <= 0)) {
+		if ((s < 0) || (nil == self.data) || (count <= 0)) {
 			ret = nil
 		} else {
 			let c = self.data!.count
 
-			if ((s + count) > UInt64(c)) {
+			if ((s + count) > c) {
 				ret = nil
 			} else {
 				let rv = self.data![0]
