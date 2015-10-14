@@ -34,8 +34,30 @@ public class BasicTypeUtil {
 
 
 public class TypeUtil {
+	public static func cstring2uint8x (fromCstring cs: [Int8],
+		size: size_t) -> array<UInt8>? {
+
+		if ((size < 0) || (size > cs.count)) {
+			return nil
+		}
+
+		let ret = array<UInt8>(count: UInt(size), repeatedValue: 0x0)
+
+		for i in 0..<size {
+			ret.data![i] = UInt8(cs[i])
+		}
+
+		return ret
+
+	}
+
+
 	public static func cdata2uint8x (from data: UnsafePointer<Void>,
-		size: size_t) -> array<UInt8> {
+		size: size_t) -> array<UInt8>? {
+
+		if ((nil == data) || (size < 0)) {
+			return nil
+		}
 
 		let ret = array<UInt8>(count: UInt(size), repeatedValue: 0x0)
 
@@ -44,5 +66,6 @@ public class TypeUtil {
 		}
 
 		return ret
+
 	}
 }
