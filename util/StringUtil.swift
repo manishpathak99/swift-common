@@ -206,6 +206,19 @@ public class StringUtil {
 	}
 
 
+	public static func toHexDataStr (let fromCstring d: [Int8], start: Int,
+		count: Int) -> String? {
+
+		if let u = TypeUtil.cstring2uint8x(fromCstring: d, size: d.count) {
+			return StringUtil.toHexDataStr(fromData: u, start: start,
+				count: count)
+		} else {
+			return nil
+		}
+
+	}
+
+
 	/**
 	* NAME toHexDataStr - fromData<br>
 	*   E.x. { '0', '9', 0xa } => { 30, 39, 10 }<br>
@@ -215,8 +228,9 @@ public class StringUtil {
 	* NOTE
 	*   All lower case
 	*/
-	public static func toHexDataStr (let fromData d: [UInt8], start: Int,
+	public static func toHexDataStr (let fromData d: array<UInt8>, start: Int,
 		count: Int) -> String? {
+
 		if ((start < 0) || (count < 0)
 			|| (d.count < (start + count))) {
 			return nil;
@@ -225,7 +239,7 @@ public class StringUtil {
 		var ret = "";
 
 		for i in 0..<count {
-			let b = d[i + start]
+			let b = d[i + start]!
 
 			let h = (b >> 4) & 0xf
 			if (h > 9) {
