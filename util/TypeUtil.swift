@@ -2,7 +2,7 @@ import Foundation
 
 public class BasicTypeUtil {
 	public static func __darwin_suseconds_t2double
-		(from s: __darwin_suseconds_t) 
+		(from s: __darwin_suseconds_t)
 		-> Double {
 		return Double(s)
 	}
@@ -48,12 +48,15 @@ public class TypeUtil {
 			/* empty */
 			return [UInt8]()
 		} else {
-			let nsdata = NSData(bytes: arr, length: cc)
-			var buf = [UInt8](count: cc, repeatedValue: 0x0)
+			let ac = arr.count
 
-			nsdata.getBytes(&buf, range: NSRange(start..<(start + cc)))
+			let nsdata = NSData(bytes: arr, length: ac)
+			var arrconv = [UInt8](count: ac, repeatedValue: 0x0)
+			nsdata.getBytes(&arrconv, length: ac)
 
-			return buf
+			let ret = array.get(fromArray: arrconv, start: start, count: cc)
+
+			return ret!
 		}
 
 	}
@@ -78,6 +81,34 @@ public class TypeUtil {
 	}
 
 
+	public static func cptr2data (cptr ptr: UnsafePointer<Void>,
+		start: Int = 0, count: size_t = 0) -> [UInt8]? {
+
+		let cc = ArrayChecker<UInt8>.check(arrayElementsCount: count,
+			start: 0, count: count)
+
+		if (cc < 0) {
+			return nil
+		}
+
+		if (0 == cc) {
+			/* empty */
+			return [UInt8]()
+		} else {
+			let ac = count
+
+			let nsdata = NSData(bytes: ptr, length: ac)
+			var ptrconv = [UInt8](count: ac, repeatedValue: 0x0)
+			nsdata.getBytes(&ptrconv, length: ac)
+
+			let ret = array.get(fromArray: ptrconv, start: start, count: cc)
+
+			return ret!
+		}
+
+	}
+
+
 	public static func data2int8x (data arr: [UInt8],
 		start: Int = 0, count: size_t? = nil) -> [Int8]? {
 
@@ -91,12 +122,15 @@ public class TypeUtil {
 			/* empty */
 			return [Int8]()
 		} else {
-			let nsdata = NSData(bytes: arr, length: cc)
-			var buf = [Int8](count: cc, repeatedValue: 0x0)
+			let ac = arr.count
 
-			nsdata.getBytes(&buf, range: NSRange(start..<(start + cc)))
+			let nsdata = NSData(bytes: arr, length: ac)
+			var arrconv = [Int8](count: ac, repeatedValue: 0x0)
+			nsdata.getBytes(&arrconv, length: ac)
 
-			return buf
+			let ret = array.get(fromArray: arrconv, start: start, count: cc)
+
+			return ret!
 		}
 
 	}
