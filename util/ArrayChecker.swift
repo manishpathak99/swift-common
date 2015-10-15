@@ -9,7 +9,10 @@ public class ArrayChecker<T> {
 		let ac = arr.count
 
 		/* check */
-		if ((start < 0) || (start >= ac)) {
+		if ((start < 0)
+			|| (start > ac)
+			|| ((0 != ac) && (ac == start))) {
+
 			return Int(-EINVAL)
 		}
 
@@ -25,4 +28,30 @@ public class ArrayChecker<T> {
 		}
 
 	}
+
+
+	public static func check (arrayElementsCount ac: Int, start: Int = 0,
+		count: size_t? = nil) -> Int {
+
+		/* check */
+		if ((start < 0)
+			|| (ac < 0)
+			|| (start > ac)
+			|| ((0 != ac) && (ac == start))) {
+			return Int(-EINVAL)
+		}
+
+		/* check */
+		if let c = count {
+			if ((c < 0) || ((c + start) > ac)) {
+				return Int(-EINVAL)
+			} else {
+				return c
+			}
+		} else {
+			return ac - start
+		}
+
+	}
+
 }
