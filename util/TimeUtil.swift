@@ -80,6 +80,41 @@ public class TimeUtil {
 	}
 
 
+	public static func currentTimezoneName () -> String {
+
+		var t = tm()
+		var c = time_t()
+
+		localtime_r(&c, &t)
+
+		if let tzs = StringUtil.toString(fromCstring3: t.tm_zone) {
+			return tzs
+		} else {
+			let off = t.tm_gmtoff /* offset from UTC in seconds */
+			let tz = off / 3600
+
+			return "\(tz)"
+		}
+
+	}
+
+
+	public static func currentTimezone () -> Int {
+
+
+		var t = tm()
+		var c = time_t()
+
+		localtime_r(&c, &t)
+
+		let off = t.tm_gmtoff /* offset from UTC in seconds */
+		let tz = off / 3600
+
+		return tz
+
+	}
+
+
 	public static func makeid () -> UInt64 {
 		var tv = timeval(tv_sec: 0, tv_usec: 0)
 
