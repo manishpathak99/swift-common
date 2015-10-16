@@ -8,8 +8,8 @@ import AppKit
 
 
 public final class Alert {
-	/* show alert */
-	public static func show (alertOnContextVC vc: UIViewController,
+	/* show cancelAlertOnCntxtVC */
+	public static func show (cancelAlertOnCntxtVC vc: UIViewController,
 		title ttl: String, msg: String,
 		cancelTitle cbt: String,
 		onCancelPressed handler: ((UIAlertAction) -> Void)? = nil,
