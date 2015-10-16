@@ -1,0 +1,51 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "922ED2F96A4B25AE8D574F17D2932D3CFBDD9F13",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "C44A86E78CA7D3C9A3BD346EBE5AD1DAE845D53E" : 0,
+    "922ED2F96A4B25AE8D574F17D2932D3CFBDD9F13" : 0,
+    "C3D8ED1CB28D809ADCE2C0DE74935E8A502ACD53" : 0,
+    "C4AFE8452A7F7C6B8BBC8091A8C04EA95FC26780" : 0,
+    "F6FFC0CB944EF8C32A23CC94DD605254B179A98C" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "35BD0BFF-D581-42F7-B1B4-E782C6FB79AA",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "C44A86E78CA7D3C9A3BD346EBE5AD1DAE845D53E" : "swift-thread\/",
+    "922ED2F96A4B25AE8D574F17D2932D3CFBDD9F13" : "swift-common\/",
+    "C3D8ED1CB28D809ADCE2C0DE74935E8A502ACD53" : "swift-crypto\/crypto\/CryptoSwift\/",
+    "C4AFE8452A7F7C6B8BBC8091A8C04EA95FC26780" : "swift-crypto\/",
+    "F6FFC0CB944EF8C32A23CC94DD605254B179A98C" : "swift-file\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "AlertDEMO",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "demos\/AlertDEMO\/AlertDEMO.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/gitlab.com\/yuiwong\/swift-common.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "922ED2F96A4B25AE8D574F17D2932D3CFBDD9F13"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/krzyzanowskim\/CryptoSwift.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "C3D8ED1CB28D809ADCE2C0DE74935E8A502ACD53"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/iamyuiwong\/swift-thread.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "C44A86E78CA7D3C9A3BD346EBE5AD1DAE845D53E"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/gitlab.com\/yuiwong\/swift-crypto.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "C4AFE8452A7F7C6B8BBC8091A8C04EA95FC26780"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/git.oschina.net\/yuiwong\/swift-file.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "F6FFC0CB944EF8C32A23CC94DD605254B179A98C"
+    }
+  ]
+}
