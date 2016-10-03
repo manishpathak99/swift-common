@@ -16,7 +16,7 @@
 import Foundation
 
 extension org.yuiwong {
-class StringUtil {
+public class StringUtil {
 	/**
 	 * @name subString - sub string of String (by character)
 	 * @ desc from @startCharIndex and max @count chars

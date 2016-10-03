@@ -14,4 +14,4 @@
  * ======================================================================== */
 
 /* org.yuiwong */
-struct org { struct yuiwong{}}
+public struct org { public struct yuiwong{}}

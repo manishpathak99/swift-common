@@ -20,7 +20,7 @@ extension org.yuiwong {
  * @name struct Random - random util struct
  * @desc org.yuiwong.Random.*
  */
-struct Random {
+public struct Random {
 	/**
 	 * @name sgetU64 - get a UInt64 random
 	 * @desc org.yuiwong.Random.getU64
@@ -59,7 +59,7 @@ struct Random {
 }
 }
 
-struct OrgYuiwongUnsignedRandom<T> {
+public struct OrgYuiwongUnsignedRandom<T> {
 	/**
 	 * @name get - get a unsigned T random
 	 * @desc OrgYuiwongUnsignedRandom.get
