@@ -72,5 +72,32 @@ public class StringUtil {
 			return s
 		}
 	}
+
+	/**
+	 * @name toHexString - U64 to hex string
+	 */
+	public static func toHexString(
+		fromU64 d: UInt64,
+		hasPrefix hp: Bool = true,
+		lower lw: Bool = true) -> String {
+		var pre: String
+		var f: String
+		if (lw) {
+			f = "%.016x"
+			if (hp) {
+				pre = "0x"
+			} else {
+				pre = ""
+			}
+		} else {
+			f = "%.016X"
+			if (hp) {
+				pre = "0X"
+			} else {
+				pre = ""
+			}
+		}
+		return pre + String(format: f, d)
+	}
 }
 }
