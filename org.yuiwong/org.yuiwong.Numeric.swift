@@ -36,7 +36,7 @@ public struct Numeric {
 	 * @name isGreaterThanU64Max - ofDouble - if double > UInt64.max
 	 */
 	public static func isGreaterThanU64Max(ofDouble d: Double) -> Bool {
-		return (d > Double(UInt64.max))
+		return ((Double.infinity == d) || (d > Double(UInt64.max)))
 	}
 }
 }
