@@ -18,6 +18,18 @@ import Foundation
 extension org.yuiwong {
 public class Time {
 	/**
+	 * @name utcSecond
+	 */
+	public static func utcSecond() -> Int64 {
+		let utcSec = time(nil);
+		if (time_t(-1) == utcSec) {
+			return -1
+		} else {
+			return Int64(utcSec)
+		}
+	}
+
+	/**
 	 * @name localISO8601MicroTzTimestamp
 	 * @desc YYYY-MM-DDThh:mm:ss.ssssss+xx
 	 */
