@@ -33,10 +33,40 @@ public struct Numeric {
 	}
 
 	/**
-	 * @name isGreaterThanU64Max - ofDouble - if double > UInt64.max
+	 * @name isGreaterThanUInt64Max - ofDouble - if double > UInt64.max
+	 * @note @d should not NaN
 	 */
-	public static func isGreaterThanU64Max(ofDouble d: Double) -> Bool {
+	public static func isGreaterThanUInt64Max(ofDouble d: Double) -> Bool {
 		return ((Double.infinity == d) || (d > Double(UInt64.max)))
+	}
+
+	/**
+	 * @name isLEInt64Max - ofDouble - if double <= Int64.max
+	 * @note @d should not NaN
+	 */
+	public static func isLEInt64Max(ofDouble d: Double) -> Bool {
+		return (d <= Double(Int64.max))
+	}
+
+	/**
+	 * @name isGEInt64Min - ofDouble - if double >= Int64.min
+	 * @note @d should not NaN
+	 */
+	public static func isGEInt64Min(ofDouble d: Double) -> Bool {
+		return (d >= Double(Int64.min))
+	}
+
+	/**
+	 * @name canCastToInt64 - chk double if valid
+	 */
+	public static func canCastToInt64(ofDouble d: Double) -> Bool {
+		if (d.isNaN) {
+			return false
+		}
+		if ((Double.infinity == d) || (-Double.infinity == d)) {
+			return false
+		}
+		return ((d >= Double(Int64.min)) && (d <= Double(Int64.max)))
 	}
 }
 }
