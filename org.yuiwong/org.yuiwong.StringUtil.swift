@@ -99,5 +99,12 @@ public class StringUtil {
 		}
 		return pre + String(format: f, d)
 	}
+
+	/**
+	 * @name length - get string length (utf-8)
+	 */
+	public static func length(ofString s: String) -> UInt64 {
+		return UInt64(s.lengthOfBytes(using: String.Encoding.utf8))
+	}
 }
 }
