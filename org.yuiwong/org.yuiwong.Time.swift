@@ -117,7 +117,7 @@ public class Time {
 
 	/**
 	 * @name chineseTimestamp (local)
-	 * @desc 甲子年正月初一
+	 * @desc 甲子年正月初一子时
 	 */
 	public static func chineseTimestamp() -> String {
 		let now = Date()
@@ -128,7 +128,7 @@ public class Time {
 			from: now)
 		let year = thisChineseYear?.year
 		if (nil == year) {
-			return "甲子年正月初一"
+			return "甲子年正月初一子时"
 		}
 		let sy = sixtyYears
 		var ret = "\(sy[year! - 1])年"
@@ -137,7 +137,7 @@ public class Time {
 			from: now)
 		let month = thisChineseMonth?.month
 		if (nil == month) {
-			return ret + "正月初一"
+			return ret + "正月初一子时"
 		}
 		let leapMonth = (thisChineseMonth?.isLeapMonth)! ? "闰" : ""
 		ret += leapMonth
@@ -161,7 +161,7 @@ public class Time {
 			NSCalendar.Unit.day,
 			from: now).day
 		if (nil == day) {
-			return ret + "初一"
+			return ret + "初一子时"
 		}
 		switch ((day! - 1) % 31) {
 		case 0: ret += "初一"
@@ -195,6 +195,35 @@ public class Time {
 		case 28: ret += "廿九"
 		case 29: ret += "三十"
 		default: ret += "初一"
+		}
+		let hour = chineseCalendar?.components(
+			NSCalendar.Unit.hour,
+			from: now).hour
+		if (nil == hour) {
+			return ret + "子时"
+		}
+		let chineseHour = earthlyBranches[((hour! + 1) % 24) / 2] + "时"
+		ret += chineseHour
+		let minute = chineseCalendar?.components(
+			NSCalendar.Unit.minute,
+			from: now).minute
+		let min = minute! / 15
+		if ((hour! % 2) != 0) {
+			switch (min) {
+			case 0: ret += ""
+			case 1: ret += "一刻"
+			case 2: ret += "二刻"
+			case 3: ret += "三刻"
+			default: ret += ""
+			}
+		} else {
+			switch (min) {
+			case 0: ret += "四刻"
+			case 1: ret += "五刻"
+			case 2: ret += "六刻"
+			case 3: ret += "七刻"
+			default: ret += "四刻"
+			}
 		}
 		return ret
 	}
