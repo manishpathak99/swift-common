@@ -77,5 +77,126 @@ public class Time {
 		localtime_r(&utcSec, &localTm)
 		return localTm.tm_yday
 	}
+
+	/**
+	 * @name heavenlyStems
+	 * @desc the ten Heavenly Stems
+	 */
+	public static var heavenlyStems: Array<String> {
+		get {
+			return [ "甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸" ]
+		}
+	}
+
+	/**
+	 * @name earthlyBranches
+	 */
+	public static var earthlyBranches: Array<String> {
+		get {
+			return [ "子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥" ]
+		}
+	}
+
+	/**
+	 * @name sixtyYears
+	 */
+	private static var _sixtyYears: Array<String>? = nil
+	public static var sixtyYears: Array<String> {
+		get {
+			if (nil == _sixtyYears) {
+				let hs = heavenlyStems
+				let eb = earthlyBranches
+				_sixtyYears = [String]()
+				for i in 0..<60 {
+					_sixtyYears!.append(hs[i % 10] + eb[i % 12])
+				}
+			}
+			return _sixtyYears!
+		}
+	}
+
+	/**
+	 * @name chineseTimestamp (local)
+	 * @desc 甲子年正月初一
+	 */
+	public static func chineseTimestamp() -> String {
+		let now = Date()
+		let chineseCalendar
+			= NSCalendar.init(identifier: NSCalendar.Identifier.chinese)
+		let thisChineseYear = chineseCalendar?.components(
+			NSCalendar.Unit.year,
+			from: now)
+		let year = thisChineseYear?.year
+		if (nil == year) {
+			return "甲子年正月初一"
+		}
+		let sy = sixtyYears
+		var ret = "\(sy[year! - 1])年"
+		let thisChineseMonth = chineseCalendar?.components(
+			NSCalendar.Unit.month,
+			from: now)
+		let month = thisChineseMonth?.month
+		if (nil == month) {
+			return ret + "正月初一"
+		}
+		let leapMonth = (thisChineseMonth?.isLeapMonth)! ? "闰" : ""
+		ret += leapMonth
+		switch ((month! - 1) % 12) {
+		case 0: ret += "正"
+		case 1: ret += "二"
+		case 2: ret += "三"
+		case 3: ret += "四"
+		case 4: ret += "五"
+		case 5: ret += "六"
+		case 6: ret += "七"
+		case 7: ret += "八"
+		case 8: ret += "九"
+		case 9: ret += "十"
+		case 10: ret += "冬"
+		case 11: ret += "腊"
+		default: ret += "正"
+		}
+		ret += "月"
+		let day = chineseCalendar?.components(
+			NSCalendar.Unit.day,
+			from: now).day
+		if (nil == day) {
+			return ret + "初一"
+		}
+		switch ((day! - 1) % 31) {
+		case 0: ret += "初一"
+		case 1: ret += "初二"
+		case 2: ret += "初三"
+		case 3: ret += "初四"
+		case 4: ret += "初五"
+		case 5: ret += "初六"
+		case 6: ret += "初七"
+		case 7: ret += "初八"
+		case 8: ret += "初九"
+		case 9: ret += "初十"
+		case 10: ret += "十一"
+		case 11: ret += "十二"
+		case 12: ret += "十三"
+		case 13: ret += "十四"
+		case 14: ret += "十五"
+		case 15: ret += "十六"
+		case 16: ret += "十七"
+		case 17: ret += "十八"
+		case 18: ret += "十九"
+		case 19: ret += "二十"
+		case 20: ret += "廿一"
+		case 21: ret += "廿二"
+		case 22: ret += "廿三"
+		case 23: ret += "廿四"
+		case 24: ret += "廿五"
+		case 25: ret += "廿六"
+		case 26: ret += "廿七"
+		case 27: ret += "廿八"
+		case 28: ret += "廿九"
+		case 29: ret += "三十"
+		default: ret += "初一"
+		}
+		return ret
+	}
 }
 }
