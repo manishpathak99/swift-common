@@ -207,21 +207,24 @@ public class Time {
 		let minute = chineseCalendar?.components(
 			NSCalendar.Unit.minute,
 			from: now).minute
-		let min = minute! / 15
 		if ((hour! % 2) != 0) {
+			let min = Int(Double(minute!) / 14.4)
 			switch (min) {
 			case 0: ret += ""
 			case 1: ret += "一刻"
 			case 2: ret += "二刻"
 			case 3: ret += "三刻"
+			case 4: ret += "四刻"
 			default: ret += ""
 			}
 		} else {
+			let min = Int(Double(minute! + 60) / 14.4)
 			switch (min) {
-			case 0: ret += "四刻"
-			case 1: ret += "五刻"
-			case 2: ret += "六刻"
-			case 3: ret += "七刻"
+			case 4: ret += "四刻"
+			case 5: ret += "五刻"
+			case 6: ret += "六刻"
+			case 7: ret += "七刻"
+			case 8: ret += "八刻"
 			default: ret += "四刻"
 			}
 		}
